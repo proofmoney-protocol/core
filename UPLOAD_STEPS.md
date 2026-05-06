@@ -1,10 +1,24 @@
-# ProofMoney Core Rustfmt Fix v0.1.1
+# ProofMoney Core Wallet Dependency Fix v0.1.2
 
 ## What this fixes
 
-The first CI failure was caused by `cargo fmt --all -- --check`.
+CI failed because `proofmoney-wallet` imports:
 
-This patch only applies rustfmt formatting changes.
+```rust
+use ed25519_dalek::SigningKey;
+```
+
+but `ed25519-dalek` was not listed in:
+
+```text
+crates/proofmoney-wallet/Cargo.toml
+```
+
+This patch adds:
+
+```toml
+ed25519-dalek.workspace = true
+```
 
 ## Target repository
 
@@ -12,25 +26,16 @@ This patch only applies rustfmt formatting changes.
 https://github.com/proofmoney-protocol/core
 ```
 
-## Files to upload and overwrite
+## File to upload and overwrite
 
 ```text
-crates/proofmoney-release/src/release_event.rs
-crates/proofmoney-release/src/validation.rs
-crates/proofmoney-types/src/amount.rs
-crates/proofmoney-wallet/src/signing.rs
+crates/proofmoney-wallet/Cargo.toml
 ```
 
-## Upload steps
-
-1. Open the `core` repository.
-2. Click `Add file → Upload files`.
-3. Upload the extracted files into the repository root.
-4. Confirm GitHub shows these files as changed, not added inside a parent folder.
-5. Commit with:
+## Commit message
 
 ```text
-core: apply rustfmt fix
+core: add wallet ed25519 dependency
 ```
 
 ## After commit
