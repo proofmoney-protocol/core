@@ -1,0 +1,25 @@
+[package]
+name = "proofmoney-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Command-line interface for ProofMoney MVP."
+
+[[bin]]
+name = "proofmoney"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+clap.workspace = true
+serde_json.workspace = true
+chrono.workspace = true
+uuid.workspace = true
+
+proofmoney-types = { path = "../proofmoney-types" }
+proofmoney-ledger = { path = "../proofmoney-ledger" }
+proofmoney-release = { path = "../proofmoney-release" }
+proofmoney-proof = { path = "../proofmoney-proof" }
+proofmoney-wallet = { path = "../proofmoney-wallet" }
+proofmoney-storage = { path = "../proofmoney-storage" }

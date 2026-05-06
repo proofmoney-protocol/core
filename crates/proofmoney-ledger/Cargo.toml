@@ -1,0 +1,17 @@
+[package]
+name = "proofmoney-ledger"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Proof Ledger implementation for ProofMoney."
+
+[dependencies]
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+chrono.workspace = true
+uuid.workspace = true
+
+proofmoney-types = { path = "../proofmoney-types" }
+proofmoney-crypto = { path = "../proofmoney-crypto" }

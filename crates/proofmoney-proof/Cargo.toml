@@ -1,0 +1,18 @@
+[package]
+name = "proofmoney-proof"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Proof Engine modules for ProofMoney."
+
+[dependencies]
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+ed25519-dalek.workspace = true
+hex.workspace = true
+
+proofmoney-types = { path = "../proofmoney-types" }
+proofmoney-crypto = { path = "../proofmoney-crypto" }
+proofmoney-release = { path = "../proofmoney-release" }
