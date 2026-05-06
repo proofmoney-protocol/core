@@ -1,0 +1,42 @@
+name: Rust CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo registry and build artifacts
+        uses: Swatinem/rust-cache@v2
+
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      - name: Build workspace
+        run: cargo build --workspace --all-targets
+
+      - name: Run tests
+        run: cargo test --workspace --all-targets
+
+      - name: Run CLI smoke tests
+        run: |
+          cargo run -p proofmoney-cli -- starting-state
+          cargo run -p proofmoney-cli -- starting-state --json
+          cargo run -p proofmoney-cli -- simulate-release --interval 1
+          cargo run -p proofmoney-cli -- verify-supply
+          cargo run -p proofmoney-cli -- verify-rule
+          cargo run -p proofmoney-cli -- integrity-status
