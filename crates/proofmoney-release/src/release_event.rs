@@ -7,9 +7,7 @@ use proofmoney_crypto::hash_bytes;
 use proofmoney_types::{Event, EventType, RuleSet};
 
 use crate::{
-    calculate_actual_release,
-    calculate_contributor_reward,
-    calculate_public_fund_allocation,
+    calculate_actual_release, calculate_contributor_reward, calculate_public_fund_allocation,
     get_protection_factor_bps,
 };
 

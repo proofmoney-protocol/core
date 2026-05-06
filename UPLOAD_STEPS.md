@@ -1,43 +1,40 @@
-# Upload Steps for Core CI and Alpha Pack
+# ProofMoney Core Rustfmt Fix v0.1.1
 
-## Target Repository
+## What this fixes
+
+The first CI failure was caused by `cargo fmt --all -- --check`.
+
+This patch only applies rustfmt formatting changes.
+
+## Target repository
 
 ```text
 https://github.com/proofmoney-protocol/core
 ```
 
-## Files to Upload
-
-Upload all files from this ZIP into the repository root.
-
-This pack adds or updates:
+## Files to upload and overwrite
 
 ```text
-.github/workflows/rust-ci.yml
-crates/proofmoney-crypto/Cargo.toml
-CONTRIBUTING.md
-SECURITY.md
-LOCAL_VERIFICATION.md
-REPO_SETTINGS_CHECKLIST.md
-RELEASE_NOTES_v0.1.0-alpha.md
-CORE_NEXT_STEPS_v1.1.md
-UPLOAD_STEPS.md
+crates/proofmoney-release/src/release_event.rs
+crates/proofmoney-release/src/validation.rs
+crates/proofmoney-types/src/amount.rs
+crates/proofmoney-wallet/src/signing.rs
 ```
 
-## Commit Message
+## Upload steps
+
+1. Open the `core` repository.
+2. Click `Add file → Upload files`.
+3. Upload the extracted files into the repository root.
+4. Confirm GitHub shows these files as changed, not added inside a parent folder.
+5. Commit with:
 
 ```text
-core: add CI and alpha release docs
+core: apply rustfmt fix
 ```
 
-## After Upload
+## After commit
 
-Open the repository Actions tab.
+GitHub Actions will run again automatically.
 
-Expected workflow:
-
-```text
-Rust CI
-```
-
-If it fails, copy the error log and send it for debugging.
+If it fails again, open the failed step and send the new error log.

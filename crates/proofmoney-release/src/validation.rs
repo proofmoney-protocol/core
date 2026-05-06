@@ -4,9 +4,7 @@ use serde_json::json;
 use proofmoney_types::{Event, EventType, LedgerState, ProofResult, RuleSet};
 
 use crate::{
-    calculate_actual_release,
-    calculate_contributor_reward,
-    calculate_public_fund_allocation,
+    calculate_actual_release, calculate_contributor_reward, calculate_public_fund_allocation,
 };
 
 pub fn validate_release_event(

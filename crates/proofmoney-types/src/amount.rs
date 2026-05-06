@@ -70,6 +70,9 @@ mod tests {
 
     #[test]
     fn fractional_format_works() {
-        assert_eq!(Amount::from_proof(123_456_789).to_prm_string(), "1.23456789");
+        assert_eq!(
+            Amount::from_proof(123_456_789).to_prm_string(),
+            "1.23456789"
+        );
     }
 }
