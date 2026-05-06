@@ -1,52 +1,43 @@
-# Upload Steps for ProofMoney Core Rust MVP Scaffold v1.0
+# Upload Steps for Core CI and Alpha Pack
 
-## Step 1: Create GitHub repository
-
-Create:
+## Target Repository
 
 ```text
-https://github.com/organizations/proofmoney-protocol/repositories/new
+https://github.com/proofmoney-protocol/core
 ```
 
-Settings:
+## Files to Upload
+
+Upload all files from this ZIP into the repository root.
+
+This pack adds or updates:
 
 ```text
-Repository name: core
-Description: Rust local MVP prototype for ProofMoney.
-Visibility: Public
-Add README: No
+.github/workflows/rust-ci.yml
+crates/proofmoney-crypto/Cargo.toml
+CONTRIBUTING.md
+SECURITY.md
+LOCAL_VERIFICATION.md
+REPO_SETTINGS_CHECKLIST.md
+RELEASE_NOTES_v0.1.0-alpha.md
+CORE_NEXT_STEPS_v1.1.md
+UPLOAD_STEPS.md
 ```
 
-## Step 2: Upload files
-
-Extract this ZIP.
-
-Upload all extracted files directly into the repository root.
-
-Do not upload the parent folder itself.
-
-## Step 3: Commit
-
-Commit message:
+## Commit Message
 
 ```text
-core: add Rust MVP scaffold v1.0
+core: add CI and alpha release docs
 ```
 
-## Step 4: Local verification
+## After Upload
 
-If you have Rust installed locally:
+Open the repository Actions tab.
 
-```bash
-cargo build
-cargo test
-cargo run -p proofmoney-cli -- starting-state
-cargo run -p proofmoney-cli -- simulate-release --interval 1
-cargo run -p proofmoney-cli -- verify-supply
-cargo run -p proofmoney-cli -- verify-rule
-cargo run -p proofmoney-cli -- integrity-status
+Expected workflow:
+
+```text
+Rust CI
 ```
 
-## Important
-
-This is a local MVP scaffold. It is not a public network, sale, airdrop, or yield product.
+If it fails, copy the error log and send it for debugging.
