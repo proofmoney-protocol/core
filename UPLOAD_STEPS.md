@@ -1,8 +1,8 @@
-# ProofMoney Core v0.5.0 Developer Release Pack
+# ProofMoney Core v0.6.0 External Review Pack
 
 ## Goal
 
-Upload this pack to the `core` repository to implement the v0.5.0 developer release milestone.
+Upload this pack to the `core` repository to implement the v0.6.0 external review preparation milestone.
 
 Repository:
 
@@ -21,7 +21,7 @@ Do not upload the parent folder itself.
 ## Commit Message
 
 ```text
-docs: prepare developer release v0.5.0
+docs: prepare external review v0.6.0
 ```
 
 ## After Upload
@@ -38,3 +38,13 @@ bash scripts/demo-local.sh
 ```
 
 If CI fails, open the failed step and send the final error log.
+
+## After CI Passes
+
+You can close Issues 1-7 under:
+
+```text
+v0.6.0-external-review
+```
+
+Do not close Issue 8 until the v0.6.0 report is published to the docs repository.
