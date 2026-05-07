@@ -11,7 +11,7 @@ This repository contains the Rust local MVP prototype for the ProofMoney Integri
 Current development target:
 
 ```text
-v0.4.0-proof-explorer-api
+v0.5.0-developer-release
 ```
 
 This repository is a local MVP prototype.
@@ -22,7 +22,7 @@ It does not represent a token sale, investment opportunity, yield product, or fu
 
 ## MVP Scope
 
-The MVP focuses on:
+The MVP currently includes:
 
 - Starting State Proof
 - Proof of Issuance
@@ -41,7 +41,12 @@ The MVP focuses on:
 - release event proof listing
 - transfer event proof listing
 - static local Proof Explorer prototype
-- Integrity Status CLI
+- developer quickstart
+- local demo script
+- sample proof fixtures
+- architecture overview
+- security review scope
+- contributor guide
 
 ## Not Included
 
@@ -54,7 +59,8 @@ The MVP does not include:
 - airdrop claim;
 - yield product;
 - production wallet security;
-- hosted public API.
+- hosted public API;
+- public production explorer.
 
 ## Build
 
@@ -68,20 +74,33 @@ cargo build --workspace --all-targets
 cargo test --workspace --all-targets
 ```
 
-## CLI
+## Local Demo
+
+```bash
+bash scripts/demo-local.sh
+```
+
+## Core CLI Examples
 
 ```bash
 cargo run -p proofmoney-cli -- starting-state
 cargo run -p proofmoney-cli -- simulate-release --interval 1 --append
 cargo run -p proofmoney-cli -- ledger-status
 cargo run -p proofmoney-cli -- verify-supply
-cargo run -p proofmoney-cli -- list-release-events
-cargo run -p proofmoney-cli -- list-transfer-events
+cargo run -p proofmoney-cli -- create-wallet --force
+cargo run -p proofmoney-cli -- new-address
 cargo run -p proofmoney-cli -- export-proof-snapshot --json
-cargo run -p proofmoney-cli -- export-proof-snapshot --output proof-snapshot.json
-cargo run -p proofmoney-cli -- export-proof-site-data
 cargo run -p proofmoney-cli -- prepare-explorer
 ```
+
+## Documentation
+
+- [Developer Quickstart](docs/developer-quickstart.md)
+- [Architecture Overview](docs/architecture-overview.md)
+- [Proof Explorer and Local Proof API](docs/proof-explorer-api.md)
+- [Ownership and Flow MVP](docs/ownership-and-flow.md)
+- [Security Review Scope](docs/security-review-scope.md)
+- [Contributing Guide](CONTRIBUTING.md)
 
 ## Local Data
 
@@ -110,6 +129,16 @@ The MVP prepares local Proof Explorer files at:
 ```
 
 These local files are for MVP testing only.
+
+## Sample Fixtures
+
+Sample proof data lives under:
+
+```text
+fixtures/
+```
+
+Fixtures are sample data only. They have no monetary value and contain no private keys.
 
 ## Risk Notice
 

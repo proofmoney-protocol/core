@@ -1,0 +1,17 @@
+{
+  "sample": true,
+  "status": "Valid",
+  "proof_type": "ledger_status",
+  "rule_version": "v1",
+  "data": {
+    "ledger_version": "v1",
+    "current_height": 1,
+    "current_supply": "5.00000000",
+    "public_proof_fund_balance": "0.15000000",
+    "event_count": 1,
+    "last_event_hash": "sample-event-hash",
+    "local_storage_path": "~/.proofmoney/ledger.json"
+  },
+  "summary": "Local ledger status exported.",
+  "safety_notice": "Sample fixture only. No monetary value. No private keys. Not public network state."
+}

@@ -1,0 +1,16 @@
+{
+  "sample": true,
+  "status": "Valid",
+  "proof_type": "proof_of_rule",
+  "rule_version": "v1",
+  "data": {
+    "active_rule_version": "v1",
+    "maximum_supply_boundary": "100000000.00000000",
+    "initial_supply": "0.00000000",
+    "public_fund_percent": 3,
+    "contributor_percent": 97,
+    "unauthorized_rule_change": false
+  },
+  "summary": "Rule set is valid. No unauthorized rule change was detected.",
+  "safety_notice": "Sample fixture only. No monetary value. No private keys. Not public network state."
+}

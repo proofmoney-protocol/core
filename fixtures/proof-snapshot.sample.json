@@ -1,0 +1,35 @@
+{
+  "sample": true,
+  "project": "ProofMoney",
+  "snapshot_version": "sample-v0.5.0-developer-release",
+  "generated_at": "1970-01-01T00:00:00Z",
+  "safety_notice": "Sample fixture only. No monetary value. No private keys. Not public network state.",
+  "starting_state": {
+    "proof_type": "starting_state",
+    "status": "Valid"
+  },
+  "ledger_status": {
+    "proof_type": "ledger_status",
+    "status": "Valid"
+  },
+  "supply": {
+    "proof_type": "proof_of_supply",
+    "status": "Valid"
+  },
+  "rule": {
+    "proof_type": "proof_of_rule",
+    "status": "Valid"
+  },
+  "integrity_status": {
+    "proof_type": "integrity_status",
+    "status": "Valid"
+  },
+  "release_events": {
+    "proof_type": "release_events",
+    "status": "Valid"
+  },
+  "transfer_events": {
+    "proof_type": "transfer_events",
+    "status": "Valid"
+  }
+}

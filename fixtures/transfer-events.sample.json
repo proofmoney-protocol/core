@@ -1,0 +1,26 @@
+{
+  "sample": true,
+  "status": "Valid",
+  "proof_type": "transfer_events",
+  "rule_version": "v1",
+  "data": {
+    "count": 1,
+    "events": [
+      {
+        "transaction_id": "sample-transfer-event",
+        "height": 2,
+        "timestamp": 0,
+        "from": "tprm1samplefrom",
+        "to": "tprm1sampleto",
+        "amount": "1.25000000",
+        "fee": "0.00000000",
+        "event_hash": "sample-transfer-hash",
+        "event_hash_valid": true,
+        "flow_status": "Valid",
+        "mvp_scope": "local_transfer_event"
+      }
+    ]
+  },
+  "summary": "Local transfer event proof listing exported.",
+  "safety_notice": "Sample fixture only. No monetary value. No private keys. Not public network state."
+}

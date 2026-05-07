@@ -1,0 +1,16 @@
+{
+  "sample": true,
+  "status": "Valid",
+  "proof_type": "starting_state",
+  "rule_version": "v1",
+  "data": {
+    "initial_supply": "0.00000000",
+    "founder_allocation": "0.00000000",
+    "private_sale_allocation": "0.00000000",
+    "hidden_address_allocation": "0.00000000",
+    "public_proof_fund_preload": "0.00000000",
+    "state_hash": "sample-starting-state-hash"
+  },
+  "summary": "Starting State is valid. No privileged allocation was detected.",
+  "safety_notice": "Sample fixture only. No monetary value. No private keys. Not public network state."
+}

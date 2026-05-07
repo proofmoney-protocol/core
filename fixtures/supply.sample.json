@@ -1,0 +1,15 @@
+{
+  "sample": true,
+  "status": "Valid",
+  "proof_type": "proof_of_supply",
+  "rule_version": "v1",
+  "data": {
+    "stored_supply": "5.00000000",
+    "computed_supply": "5.00000000",
+    "supply_matches": true,
+    "maximum_supply_boundary": "100000000.00000000",
+    "invalid_release_detected": false
+  },
+  "summary": "Supply is valid. Computed supply matches stored supply and no boundary violation was detected.",
+  "safety_notice": "Sample fixture only. No monetary value. No private keys. Not public network state."
+}

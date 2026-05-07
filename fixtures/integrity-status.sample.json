@@ -1,0 +1,19 @@
+{
+  "sample": true,
+  "status": "Valid",
+  "proof_type": "integrity_status",
+  "rule_version": "v1",
+  "data": {
+    "starting_state": "available",
+    "issuance": "available",
+    "supply": "Valid",
+    "ownership_verification": "available",
+    "flow_verification": "available",
+    "rule": "Valid",
+    "public_proof_fund": "auditable",
+    "invalid_release_detected": false,
+    "mvp_stage": "local prototype"
+  },
+  "summary": "ProofMoney Integrity Status is healthy.",
+  "safety_notice": "Sample fixture only. No monetary value. No private keys. Not public network state."
+}

@@ -1,23 +1,69 @@
 # Contributing to ProofMoney Core
 
-ProofMoney Core is the Rust local MVP prototype for verifiable money integrity.
+ProofMoney Core is a local MVP prototype for verifiable money integrity.
 
-Before contributing, read:
+> If money cannot be verified, it is only a promise.
 
-- `README.md`
-- `docs/mvp-limitations.md`
-- ProofMoney docs repository: https://github.com/proofmoney-protocol/docs
+Thank you for considering a contribution.
 
-## Development Rules
+---
 
-- Do not use floating-point numbers for monetary amounts.
-- Use integer smallest units.
-- Add tests for valid and invalid cases.
-- Keep the MVP local.
-- Do not add token sale, airdrop, yield, exchange, or trading features.
-- Do not overclaim security.
+## Project Purpose
 
-## Required Local Checks
+ProofMoney explores a verification-first standard for money-like digital systems.
+
+The current repository is focused on local MVP proof logic:
+
+- Starting State Proof
+- Proof of Issuance
+- Proof of Supply
+- Proof of Ownership
+- Proof of Flow
+- Proof of Rule
+- local proof export
+- local proof explorer prototype
+
+---
+
+## Safety Boundary
+
+Do not add or promote:
+
+- token sale;
+- presale;
+- private allocation;
+- airdrop claim;
+- yield product;
+- price prediction;
+- exchange listing;
+- trading interface;
+- investment return language;
+- test-to-main conversion promises.
+
+ProofMoney Core is not production wallet software.
+
+Do not present MVP wallet functionality as safe custody.
+
+---
+
+## Local Setup
+
+```bash
+git clone https://github.com/proofmoney-protocol/core.git
+cd core
+cargo build --workspace --all-targets
+cargo test --workspace --all-targets
+```
+
+Run the local demo:
+
+```bash
+bash scripts/demo-local.sh
+```
+
+---
+
+## Code Style
 
 Before opening a pull request, run:
 
@@ -27,15 +73,13 @@ cargo build --workspace --all-targets
 cargo test --workspace --all-targets
 ```
 
-Run CLI smoke tests:
+CI requires:
 
 ```bash
-cargo run -p proofmoney-cli -- starting-state
-cargo run -p proofmoney-cli -- simulate-release --interval 1
-cargo run -p proofmoney-cli -- verify-supply
-cargo run -p proofmoney-cli -- verify-rule
-cargo run -p proofmoney-cli -- integrity-status
+cargo fmt --all -- --check
 ```
+
+---
 
 ## Pull Request Expectations
 
@@ -43,19 +87,59 @@ A PR should explain:
 
 - what changed;
 - which proof area is affected;
-- which commands were tested;
+- whether local ledger state changes;
+- whether wallet behavior changes;
+- which tests were run;
 - whether risk or user expectations changed.
+
+---
+
+## Issue Workflow
+
+Use GitHub Issues for:
+
+- feature requests;
+- bug reports;
+- proof logic concerns;
+- documentation updates;
+- security review notes.
+
+For larger changes, create or reference a milestone.
+
+---
 
 ## Forbidden Changes
 
 Do not add:
 
-- PRM sale language;
-- airdrop claim logic;
-- presale logic;
-- yield logic;
+- PRM sale functionality;
+- claim pages;
+- yield language;
+- price charts;
 - exchange integration;
-- price or trading features;
-- test-to-main conversion promises.
+- trading functionality;
+- hidden allocation logic;
+- privileged founder allocation;
+- production custody claims.
 
-If money cannot be verified, it is only a promise.
+---
+
+## Security Review
+
+Security-related concerns should be handled carefully.
+
+Do not publicly post exploit-ready details if a vulnerability could put users at risk.
+
+Current security review scope is documented in:
+
+```text
+docs/security-review-scope.md
+```
+
+---
+
+## Final Statement
+
+Verification reduces trust requirements, but it does not eliminate risk.
+
+ProofMoney is experimental and may fail.

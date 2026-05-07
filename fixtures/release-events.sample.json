@@ -1,0 +1,25 @@
+{
+  "sample": true,
+  "status": "Valid",
+  "proof_type": "release_events",
+  "rule_version": "v1",
+  "data": {
+    "count": 1,
+    "events": [
+      {
+        "event_id": "sample-release-event",
+        "height": 1,
+        "timestamp": 0,
+        "recipient": "tprm1sample",
+        "actual_release": "5.00000000",
+        "public_proof_fund": "0.15000000",
+        "proof_contributor_reward": "4.85000000",
+        "event_hash": "sample-release-hash",
+        "event_hash_valid": true,
+        "proof_status": "Valid"
+      }
+    ]
+  },
+  "summary": "Local release event proof listing exported.",
+  "safety_notice": "Sample fixture only. No monetary value. No private keys. Not public network state."
+}
