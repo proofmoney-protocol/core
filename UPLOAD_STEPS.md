@@ -1,8 +1,8 @@
-# ProofMoney Core v0.6.2 External Review Ops Pack
+# ProofMoney Core v0.6.3 Reviewer Outreach Pack
 
 ## Goal
 
-Add external review launch checklist, GitHub labels guide, Discussion announcement copy, reviewer tracking sheet, and external review status document.
+Add reviewer outreach playbook, message templates, review response log template, first review batch plan, and reviewer follow-up templates.
 
 ## Target Repository
 
@@ -21,22 +21,21 @@ Do not upload the parent folder itself.
 ## Commit Message
 
 ```text
-docs: add external review launch ops
+docs: add reviewer outreach materials
 ```
 
 ## After Commit
 
-No new Release is required.
+No Release is required.
 
 Recommended next steps:
 
-1. Go to `Issues → Labels`.
-2. Create or verify labels from `docs/github-review-labels.md`.
-3. Go to `Discussions`.
-4. Create the external review announcement using `docs/github-discussion-external-review-announcement.md`.
-5. Start targeted reviewer outreach using `docs/reviewer-outreach-message.md`.
-6. Track reviewer status in `docs/reviewer-tracking-sheet.md`.
+1. Pick 5-10 targeted reviewers.
+2. Use `docs/outreach-message-templates.md`.
+3. Track outreach in `docs/reviewer-tracking-sheet.md`.
+4. Record findings in `docs/review-response-log-template.md`.
+5. Start `v0.7.0-review-response` only after meaningful feedback arrives.
 
 ## Note
 
-If the 8 v0.6.0 open Issues still appear later, close them manually when GitHub loads normally.
+Do not mass-promote this as a token project. Keep outreach technical and review-focused.
