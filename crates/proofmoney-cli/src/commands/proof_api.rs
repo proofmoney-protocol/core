@@ -17,6 +17,7 @@ use std::fs;
 use std::path::Path;
 
 const SAFETY_NOTICE: &str = "ProofMoney local MVP data only. Not a public network, token sale, yield product, airdrop, exchange integration, or production wallet.";
+const FRESHNESS_WARNING: &str = "This proof export is a local snapshot. It can become stale after local ledger changes. Regenerate exports after state changes.";
 
 pub fn export_proof_snapshot(output: Option<String>, json_output: bool) -> Result<()> {
     let snapshot = proof_snapshot_value()?;
@@ -33,6 +34,7 @@ pub fn export_proof_snapshot(output: Option<String>, json_output: bool) -> Resul
         println!("ProofMoney Local Proof Snapshot\n");
         println!("Generated At: {}", snapshot["generated_at"]);
         println!("Ledger Path: {}", snapshot["ledger_status"]["data"]["local_storage_path"]);
+        println!("Freshness: {}", FRESHNESS_WARNING);
         println!("Safety: {}", SAFETY_NOTICE);
     }
 
@@ -44,6 +46,7 @@ pub fn export_proof_site_data() -> Result<()> {
     export_all_to_dir(&dir)?;
 
     println!("Proof site data exported to: {}", dir.display());
+    println!("Freshness: {}", FRESHNESS_WARNING);
     println!("Safety: {}", SAFETY_NOTICE);
     Ok(())
 }
@@ -125,6 +128,7 @@ pub fn prepare_explorer() -> Result<()> {
     println!("Proof Explorer prepared at: {}", explorer.display());
     println!("Open locally: {}", explorer.join("index.html").display());
     println!("Explorer data: {}", data.display());
+    println!("Freshness: {}", FRESHNESS_WARNING);
     println!("Safety: {}", SAFETY_NOTICE);
 
     Ok(())
@@ -145,11 +149,26 @@ fn export_all_to_dir(dir: &Path) -> Result<()> {
     Ok(())
 }
 
+fn export_metadata_value() -> Result<Value> {
+    let ledger = load_or_init_ledger("v1")?;
+    let path = ledger_path()?;
+
+    Ok(json!({
+        "exported_at": Utc::now().to_rfc3339(),
+        "ledger_height_at_export": ledger.current_height,
+        "last_event_hash_at_export": ledger.last_event_hash,
+        "event_count_at_export": ledger.events.len(),
+        "local_ledger_path": path.display().to_string(),
+        "freshness_warning": FRESHNESS_WARNING
+    }))
+}
+
 fn proof_snapshot_value() -> Result<Value> {
     Ok(json!({
         "project": "ProofMoney",
-        "snapshot_version": "v0.4.0-proof-explorer-api",
+        "snapshot_version": "v0.8.0-cli-integration-hardening",
         "generated_at": Utc::now().to_rfc3339(),
+        "export_metadata": export_metadata_value()?,
         "safety_notice": SAFETY_NOTICE,
         "starting_state": starting_state_value()?,
         "ledger_status": ledger_status_value()?,
@@ -171,6 +190,7 @@ fn starting_state_value() -> Result<Value> {
         "rule_version": proof.rule_version,
         "data": proof.data,
         "summary": proof.summary,
+        "export_metadata": export_metadata_value()?,
         "safety_notice": SAFETY_NOTICE
     }))
 }
@@ -193,6 +213,7 @@ fn ledger_status_value() -> Result<Value> {
             "local_storage_path": path.display().to_string()
         },
         "summary": "Local ledger status exported.",
+        "export_metadata": export_metadata_value()?,
         "safety_notice": SAFETY_NOTICE
     }))
 }
@@ -208,6 +229,7 @@ fn supply_value() -> Result<Value> {
         "rule_version": proof.rule_version,
         "data": proof.data,
         "summary": proof.summary,
+        "export_metadata": export_metadata_value()?,
         "safety_notice": SAFETY_NOTICE
     }))
 }
@@ -222,6 +244,7 @@ fn rule_value() -> Result<Value> {
         "rule_version": proof.rule_version,
         "data": proof.data,
         "summary": proof.summary,
+        "export_metadata": export_metadata_value()?,
         "safety_notice": SAFETY_NOTICE
     }))
 }
@@ -237,6 +260,7 @@ fn integrity_status_value() -> Result<Value> {
         "rule_version": proof.rule_version,
         "data": proof.data,
         "summary": proof.summary,
+        "export_metadata": export_metadata_value()?,
         "safety_notice": SAFETY_NOTICE
     }))
 }
@@ -263,6 +287,7 @@ fn release_events_value() -> Result<Value> {
             "events": events
         },
         "summary": "Local release event proof listing exported.",
+        "export_metadata": export_metadata_value()?,
         "safety_notice": SAFETY_NOTICE
     }))
 }
@@ -306,6 +331,7 @@ fn transfer_events_value() -> Result<Value> {
             "events": events
         },
         "summary": "Local transfer event proof listing exported.",
+        "export_metadata": export_metadata_value()?,
         "safety_notice": SAFETY_NOTICE
     }))
 }

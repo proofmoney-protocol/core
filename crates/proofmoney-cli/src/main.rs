@@ -40,6 +40,27 @@ enum Commands {
         json: bool,
     },
 
+    /// Reset the local MVP ledger state.
+    ResetLedger {
+        #[arg(long)]
+        yes: bool,
+
+        #[arg(long)]
+        json: bool,
+    },
+
+    /// Validate local MVP state consistency.
+    ValidateLocalState {
+        #[arg(long)]
+        json: bool,
+    },
+
+    /// Detect obvious local ledger tampering.
+    DetectTampering {
+        #[arg(long)]
+        json: bool,
+    },
+
     /// Verify current supply.
     VerifySupply {
         #[arg(long)]
@@ -170,6 +191,9 @@ fn main() -> Result<()> {
             json,
         } => commands::release::simulate_release(interval, recipient, append, json),
         Commands::LedgerStatus { json } => commands::ledger::ledger_status(json),
+        Commands::ResetLedger { yes, json } => commands::local_state::reset_ledger(yes, json),
+        Commands::ValidateLocalState { json } => commands::local_state::validate_local_state(json),
+        Commands::DetectTampering { json } => commands::local_state::detect_tampering(json),
         Commands::VerifySupply { json } => commands::verify::verify_supply(json),
         Commands::VerifyRule { json } => commands::verify::verify_rule(json),
         Commands::IntegrityStatus { json } => commands::status::integrity_status(json),

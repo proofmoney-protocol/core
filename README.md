@@ -11,10 +11,10 @@ This repository contains the Rust local MVP prototype for the ProofMoney Integri
 Current development target:
 
 ```text
-v0.7.0-internal-review-hardening
+v0.8.0-cli-integration-hardening
 ```
 
-This repository is a local MVP prototype under founder-led internal review and hardening.
+This repository is a local MVP prototype under founder-led internal review and CLI integration hardening.
 
 It is not a public network.  
 It does not create PRM with monetary value.  
@@ -23,7 +23,7 @@ It does not represent a token sale, investment opportunity, yield product, airdr
 ## Review Status
 
 ```text
-Founder-led internal review in progress
+Founder-led internal review and CLI hardening in progress
 External audit status: Not audited
 Network status: Local MVP only
 Wallet status: Experimental local MVP wallet only
@@ -40,26 +40,28 @@ The MVP currently includes:
 - Proof of Flow
 - Proof of Rule
 - local ledger persistence
+- local ledger reset
+- local state validation
+- local tamper detection
 - release event append flow
 - computed supply verification
 - local wallet persistence
 - transfer event creation
 - local balance tracking
 - local proof JSON export
-- proof snapshot generation
+- proof snapshot generation with freshness metadata
 - release event proof listing
 - transfer event proof listing
 - static local Proof Explorer prototype
 - developer quickstart
-- local demo script
+- local demo scripts
+- isolated CLI integration tests
 - sample proof fixtures
 - architecture overview
 - security review scope
 - contributor guide
 - MVP scope freeze
-- external review preparation notes
 - internal review and hardening notes
-- negative test coverage for selected invalid local MVP states
 
 ## Not Included
 
@@ -92,14 +94,18 @@ cargo test --workspace --all-targets
 
 ```bash
 bash scripts/demo-local.sh
+bash scripts/demo-transfer-local.sh
 ```
 
 ## Core CLI Examples
 
 ```bash
+cargo run -p proofmoney-cli -- reset-ledger --yes
 cargo run -p proofmoney-cli -- starting-state
 cargo run -p proofmoney-cli -- simulate-release --interval 1 --append
 cargo run -p proofmoney-cli -- ledger-status
+cargo run -p proofmoney-cli -- validate-local-state
+cargo run -p proofmoney-cli -- detect-tampering
 cargo run -p proofmoney-cli -- verify-supply
 cargo run -p proofmoney-cli -- create-wallet --force
 cargo run -p proofmoney-cli -- new-address
@@ -112,15 +118,13 @@ cargo run -p proofmoney-cli -- prepare-explorer
 - [Developer Quickstart](docs/developer-quickstart.md)
 - [Architecture Overview](docs/architecture-overview.md)
 - [Proof Explorer and Local Proof API](docs/proof-explorer-api.md)
-- [Ownership and Flow MVP](docs/ownership-and-flow.md)
+- [CLI Integration Hardening](docs/cli-integration-hardening.md)
+- [Local State Validation](docs/local-state-validation.md)
+- [Transfer Demo](docs/transfer-demo.md)
 - [Security Review Scope](docs/security-review-scope.md)
 - [Contributing Guide](CONTRIBUTING.md)
 - [MVP Scope Freeze](docs/mvp-scope-freeze.md)
-- [External Review Index](docs/external-review-index.md)
 - [Internal Review Index](docs/internal-review-index.md)
-- [Internal Review Summary](docs/internal-review-summary.md)
-- [Internal Review Findings](docs/internal-review-findings.md)
-- [Negative Test Coverage Notes](docs/negative-test-coverage.md)
 
 ## Local Data
 
@@ -149,16 +153,6 @@ The MVP prepares local Proof Explorer files at:
 ```
 
 These local files are for MVP testing only.
-
-## Sample Fixtures
-
-Sample proof data lives under:
-
-```text
-fixtures/
-```
-
-Fixtures are sample data only. They have no monetary value and contain no private keys.
 
 ## Risk Notice
 

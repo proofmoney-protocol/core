@@ -1,4 +1,5 @@
 pub mod ledger;
+pub mod local_state;
 pub mod proof_api;
 pub mod release;
 pub mod starting_state;

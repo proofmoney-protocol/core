@@ -1,11 +1,11 @@
-use anyhow::{bail, Result};
+use anyhow::{anyhow, bail, Result};
 use proofmoney_crypto::is_valid_address;
 use proofmoney_ledger::{
     apply_event, create_transfer_event, state_before_event, transfer_signing_message,
 };
 use proofmoney_proof::verify_flow;
 use proofmoney_storage::{default_wallet_path, load_json, load_or_init_ledger, save_ledger};
-use proofmoney_types::{Amount, ProofStatus, RuleSet};
+use proofmoney_types::{Amount, ProofStatus};
 use proofmoney_wallet::{sign_message_with_private_key_hex, LocalWallet};
 
 pub fn create_transfer(
@@ -16,24 +16,36 @@ pub fn create_transfer(
     json: bool,
 ) -> Result<()> {
     if !is_valid_address(&from, "tprm") {
-        bail!("invalid sender address");
+        bail!("invalid sender address: expected a local MVP address with the tprm prefix");
     }
 
     if !is_valid_address(&to, "tprm") {
-        bail!("invalid receiver address");
+        bail!("invalid receiver address: expected a local MVP address with the tprm prefix");
     }
 
-    let amount = Amount::parse_prm_decimal(&amount)?;
+    let amount = Amount::parse_prm_decimal(&amount).map_err(|_| {
+        anyhow!("invalid amount: use a non-negative decimal string with up to 8 fractional digits")
+    })?;
     let fee = Amount::zero();
 
     if amount.is_zero() {
-        bail!("amount must be greater than zero");
+        bail!("invalid amount: transfer amount must be greater than zero");
     }
 
-    let wallet: LocalWallet = load_json(&default_wallet_path()?)?;
+    let wallet_path = default_wallet_path()?;
+    let wallet: LocalWallet = load_json(&wallet_path).map_err(|err| {
+        anyhow!(
+            "local MVP wallet not found or unreadable at {}. Run `proofmoney create-wallet --force` first. Details: {err}",
+            wallet_path.display()
+        )
+    })?;
 
     if wallet.address != from {
-        bail!("local wallet address does not match transfer sender");
+        bail!(
+            "wallet sender mismatch: local wallet address {} does not match transfer sender {}",
+            wallet.address,
+            from
+        );
     }
 
     let mut ledger = load_or_init_ledger("v1")?;
@@ -59,13 +71,17 @@ pub fn create_transfer(
     let proof = verify_flow(&event, &ledger)?;
 
     if !matches!(proof.status, ProofStatus::Valid) {
-        bail!("transfer failed Proof of Flow validation");
+        bail!("transfer failed local Proof of Flow validation: {}", proof.summary);
     }
 
     let mut append_status = "not_appended".to_string();
 
     if append {
-        apply_event(&mut ledger, event.clone())?;
+        apply_event(&mut ledger, event.clone()).map_err(|err| {
+            anyhow!(
+                "failed to append local MVP transfer event. This may indicate insufficient balance, invalid event state, or local ledger inconsistency. Details: {err}"
+            )
+        })?;
         save_ledger(&ledger)?;
         append_status = "appended".to_string();
     }
@@ -79,7 +95,8 @@ pub fn create_transfer(
         "event_hash": event.hash,
         "append_status": append_status,
         "flow_status": format!("{:?}", proof.status),
-        "mvp_scope": "local_transfer_event"
+        "mvp_scope": "local_transfer_event",
+        "safety_notice": "Local MVP transfer only. No public network broadcast. No PRM with monetary value is created."
     });
 
     if json {

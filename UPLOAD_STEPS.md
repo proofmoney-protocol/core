@@ -1,8 +1,8 @@
-# ProofMoney Core v0.7.0 Internal Review Hardening Pack
+# ProofMoney Core v0.8.0 CLI Integration Hardening Pack
 
 ## Goal
 
-Upload this pack to the `core` repository to implement the v0.7.0 internal review hardening milestone.
+Upload this pack to the `core` repository to implement the v0.8.0 CLI integration hardening milestone.
 
 Repository:
 
@@ -21,7 +21,7 @@ Do not upload the parent folder itself.
 ## Commit Message
 
 ```text
-core: add internal review hardening v0.7.0
+core: harden cli integration v0.8.0
 ```
 
 ## After Upload
@@ -35,6 +35,7 @@ cargo fmt --all -- --check
 cargo build --workspace --all-targets
 cargo test --workspace --all-targets
 bash scripts/demo-local.sh
+bash scripts/demo-transfer-local.sh
 ```
 
 If CI fails, open the failed step and send the final error log.
@@ -44,7 +45,7 @@ If CI fails, open the failed step and send the final error log.
 You can close Issues 1-7 under:
 
 ```text
-v0.7.0-internal-review-hardening
+v0.8.0-cli-integration-hardening
 ```
 
-Do not close Issue 8 until the v0.7.0 report is published to the docs repository.
+Do not close Issue 8 until the v0.8.0 report is published to the docs repository.
