@@ -1,45 +1,51 @@
-# ProofMoney Core v0.8.0 CI Fix: release event hash
+# ProofMoney Core v0.9.0 Protocol Spec Freeze Pack
 
-## Problem
+## Goal
 
-CI fails on:
+Upload this pack to the `core` repository to implement the v0.9.0 protocol specification freeze milestone.
 
-```text
-simulate-release --interval 1 --append
-```
-
-Error:
+Repository:
 
 ```text
-Error: event hash is invalid
+https://github.com/proofmoney-protocol/core
 ```
 
-## Fix
+## Upload
 
-This patch rewrites the CLI release simulation to create the release event directly and hash it using the same ledger hashing function used by `apply_event`:
+Upload all files in this pack into the repository root.
 
-```text
-proofmoney_ledger::hash_event
-```
+Important:
 
-That removes the mismatch between release-event construction and ledger-event verification.
-
-## File to Upload
-
-Upload and overwrite:
-
-```text
-crates/proofmoney-cli/src/commands/release.rs
-```
+Do not upload the parent folder itself.
 
 ## Commit Message
 
 ```text
-fix: hash simulated release events with ledger hasher
+docs: freeze local MVP protocol specs v0.9.0
 ```
 
-## After Commit
+## After Upload
 
-Run GitHub Actions again.
+GitHub Actions should run automatically.
 
-If CI still fails, send the final 30 lines of the failing step.
+Expected checks:
+
+```bash
+cargo fmt --all -- --check
+cargo build --workspace --all-targets
+cargo test --workspace --all-targets
+bash scripts/demo-local.sh
+bash scripts/demo-transfer-local.sh
+```
+
+If CI fails, open the failed step and send the final error log.
+
+## After CI Passes
+
+You can close Issues 1-7 under:
+
+```text
+v0.9.0-protocol-spec-freeze
+```
+
+Do not close Issue 8 until the v0.9.0 report is published to the docs repository.

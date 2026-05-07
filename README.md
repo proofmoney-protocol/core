@@ -11,10 +11,10 @@ This repository contains the Rust local MVP prototype for the ProofMoney Integri
 Current development target:
 
 ```text
-v0.8.0-cli-integration-hardening
+v0.9.0-protocol-spec-freeze
 ```
 
-This repository is a local MVP prototype under founder-led internal review and CLI integration hardening.
+This repository is a local MVP prototype under protocol specification freeze.
 
 It is not a public network.  
 It does not create PRM with monetary value.  
@@ -23,7 +23,7 @@ It does not represent a token sale, investment opportunity, yield product, airdr
 ## Review Status
 
 ```text
-Founder-led internal review and CLI hardening in progress
+Founder-led protocol specification freeze
 External audit status: Not audited
 Network status: Local MVP only
 Wallet status: Experimental local MVP wallet only
@@ -62,6 +62,7 @@ The MVP currently includes:
 - contributor guide
 - MVP scope freeze
 - internal review and hardening notes
+- protocol specification documents
 
 ## Not Included
 
@@ -117,14 +118,17 @@ cargo run -p proofmoney-cli -- prepare-explorer
 
 - [Developer Quickstart](docs/developer-quickstart.md)
 - [Architecture Overview](docs/architecture-overview.md)
-- [Proof Explorer and Local Proof API](docs/proof-explorer-api.md)
 - [CLI Integration Hardening](docs/cli-integration-hardening.md)
-- [Local State Validation](docs/local-state-validation.md)
-- [Transfer Demo](docs/transfer-demo.md)
+- [Protocol Spec Index](docs/specs/protocol-spec-index-v0.1.md)
+- [Amount Model Specification](docs/specs/amount-model-v0.1.md)
+- [Event Schema Specification](docs/specs/event-schema-v0.1.md)
+- [Proof Result Schema Specification](docs/specs/proof-result-schema-v0.1.md)
+- [Proof Release Curve Specification](docs/specs/proof-release-curve-v0.1.md)
+- [Local Ledger State Specification](docs/specs/local-ledger-state-v0.1.md)
+- [Proof Export JSON Specification](docs/specs/proof-export-json-v0.1.md)
+- [Wallet and Ownership Safety Specification](docs/specs/wallet-ownership-safety-v0.1.md)
 - [Security Review Scope](docs/security-review-scope.md)
 - [Contributing Guide](CONTRIBUTING.md)
-- [MVP Scope Freeze](docs/mvp-scope-freeze.md)
-- [Internal Review Index](docs/internal-review-index.md)
 
 ## Local Data
 
