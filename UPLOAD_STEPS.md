@@ -1,8 +1,8 @@
-# ProofMoney Core v0.6.1 Review Intake Pack
+# ProofMoney Core v0.6.2 External Review Ops Pack
 
 ## Goal
 
-Add GitHub review intake templates, PR template, security policy, review intake process, and reviewer outreach message.
+Add external review launch checklist, GitHub labels guide, Discussion announcement copy, reviewer tracking sheet, and external review status document.
 
 ## Target Repository
 
@@ -21,21 +21,21 @@ Do not upload the parent folder itself.
 ## Commit Message
 
 ```text
-docs: add external review intake process
+docs: add external review launch ops
 ```
 
 ## After Commit
 
-No new Release is required for this small intake patch unless you want to tag `v0.6.1-review-intake`.
+No new Release is required.
 
-Recommended next step:
+Recommended next steps:
 
-1. Check GitHub Issues → New Issue.
-2. Confirm the templates appear:
-   - External Review Finding
-   - Documentation Feedback
-3. Check Pull Request template exists.
-4. Check `SECURITY.md` appears in the repository.
+1. Go to `Issues → Labels`.
+2. Create or verify labels from `docs/github-review-labels.md`.
+3. Go to `Discussions`.
+4. Create the external review announcement using `docs/github-discussion-external-review-announcement.md`.
+5. Start targeted reviewer outreach using `docs/reviewer-outreach-message.md`.
+6. Track reviewer status in `docs/reviewer-tracking-sheet.md`.
 
 ## Note
 
