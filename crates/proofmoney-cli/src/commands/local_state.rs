@@ -1,11 +1,12 @@
 use anyhow::{bail, Result};
 use proofmoney_ledger::{
     compute_balances_from_events, compute_public_fund_from_events, compute_supply_from_events,
-    reset_local_ledger, verify_event_hash,
+    verify_event_hash,
 };
-use proofmoney_storage::{ledger_path, load_or_init_ledger, save_ledger};
+use proofmoney_storage::{ledger_path, load_or_init_ledger};
 use proofmoney_types::LedgerState;
 use serde_json::{json, Value};
+use std::fs;
 
 const SAFETY_NOTICE: &str = "Local MVP state only. No public network exists and no PRM with monetary value is created.";
 
@@ -14,13 +15,19 @@ pub fn reset_ledger(yes: bool, json_output: bool) -> Result<()> {
         bail!("reset-ledger requires --yes because it overwrites local MVP ledger state only");
     }
 
-    let state = reset_local_ledger("v1");
     let path = ledger_path()?;
-    save_ledger(&state)?;
+
+    if path.exists() {
+        fs::remove_file(&path)?;
+    }
+
+    let state = load_or_init_ledger("v1")?;
 
     let output = json!({
         "status": "reset",
         "ledger_path": path.display().to_string(),
+        "ledger_height": state.current_height,
+        "event_count": state.events.len(),
         "wallet_reset": false,
         "safety_notice": SAFETY_NOTICE
     });
@@ -31,6 +38,8 @@ pub fn reset_ledger(yes: bool, json_output: bool) -> Result<()> {
         println!("Local Ledger Reset\n");
         println!("Status: reset");
         println!("Ledger Path: {}", path.display());
+        println!("Ledger Height: {}", state.current_height);
+        println!("Event Count: {}", state.events.len());
         println!("Wallet Reset: false");
         println!("Safety: {}", SAFETY_NOTICE);
     }
@@ -97,8 +106,7 @@ fn print_human_report(title: &str, report: &Value) {
 fn local_state_report(command: &str) -> Result<Value> {
     let path = ledger_path()?;
     let ledger = load_or_init_ledger("v1")?;
-    let mut issues = validate_ledger(&ledger);
-
+    let issues = validate_ledger(&ledger);
     let valid = issues.is_empty();
 
     Ok(json!({
@@ -109,7 +117,7 @@ fn local_state_report(command: &str) -> Result<Value> {
         "ledger_height": ledger.current_height,
         "event_count": ledger.events.len(),
         "last_event_hash": ledger.last_event_hash,
-        "issues": issues.drain(..).collect::<Vec<_>>(),
+        "issues": issues,
         "checks": {
             "event_hashes": "checked",
             "rule_versions": "checked",

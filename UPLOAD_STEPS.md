@@ -1,51 +1,43 @@
-# ProofMoney Core v0.8.0 CLI Integration Hardening Pack
+# ProofMoney Core v0.8.0 CI Fix: reset-ledger
 
-## Goal
+## Problem
 
-Upload this pack to the `core` repository to implement the v0.8.0 CLI integration hardening milestone.
-
-Repository:
+CI failed in:
 
 ```text
-https://github.com/proofmoney-protocol/core
+crates/proofmoney-cli/tests/cli_integration.rs
 ```
 
-## Upload
+Error:
 
-Upload all files in this pack into the repository root.
+```text
+Error: event hash is invalid
+```
 
-Important:
+The failure happened after `reset-ledger`, when the integration flow tried to append a release event.
 
-Do not upload the parent folder itself.
+## Fix
+
+This patch changes `reset-ledger` to remove the local ledger file and reinitialize it through the existing `load_or_init_ledger("v1")` storage path.
+
+That keeps reset behavior aligned with the same initialization path used by the rest of the MVP.
+
+## File to Upload
+
+Upload and overwrite:
+
+```text
+crates/proofmoney-cli/src/commands/local_state.rs
+```
 
 ## Commit Message
 
 ```text
-core: harden cli integration v0.8.0
+fix: align reset ledger with storage initialization
 ```
 
-## After Upload
+## After Commit
 
-GitHub Actions should run automatically.
+Run GitHub Actions again.
 
-Expected checks:
-
-```bash
-cargo fmt --all -- --check
-cargo build --workspace --all-targets
-cargo test --workspace --all-targets
-bash scripts/demo-local.sh
-bash scripts/demo-transfer-local.sh
-```
-
-If CI fails, open the failed step and send the final error log.
-
-## After CI Passes
-
-You can close Issues 1-7 under:
-
-```text
-v0.8.0-cli-integration-hardening
-```
-
-Do not close Issue 8 until the v0.8.0 report is published to the docs repository.
+If CI still fails, send the final 30 lines of the failing step.
