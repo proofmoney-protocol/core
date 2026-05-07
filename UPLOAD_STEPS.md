@@ -1,8 +1,4 @@
-# ProofMoney Core Rustfmt Restore Pack v0.2.1
-
-## Goal
-
-Restore strict rustfmt check in GitHub Actions and close Issue 7 if CI passes.
+# ProofMoney Core Storage Export Fix v0.2.2
 
 ## Target Repository
 
@@ -12,39 +8,23 @@ https://github.com/proofmoney-protocol/core
 
 ## Files to Upload
 
-Upload and overwrite these files:
+Upload and overwrite:
 
 ```text
-.github/workflows/rust-ci.yml
-crates/proofmoney-cli/src/commands/verify.rs
-CORE_V0.2.1_RUSTFMT_RESTORE.md
+crates/proofmoney-storage/src/lib.rs
+crates/proofmoney-storage/src/ledger_store.rs
+CORE_V0.2.2_STORAGE_EXPORT_FIX.md
 UPLOAD_STEPS.md
 ```
 
 ## Commit Message
 
 ```text
-ci: restore strict rustfmt check
+core: export local ledger storage helpers
 ```
 
 ## After Commit
 
-Open:
+GitHub Actions will run again.
 
-```text
-https://github.com/proofmoney-protocol/core/actions
-```
-
-Wait for Rust CI.
-
-If the CI passes:
-
-1. close Issue 7;
-2. close Issue 8 if not already closed;
-3. close the `v0.2.0-local-ledger` milestone if all related issues are closed.
-
-If the CI fails:
-
-1. open the failed `Check formatting` step;
-2. copy the full rustfmt diff;
-3. send it for another patch.
+If CI fails again, open the failed step and send the new final error log.
