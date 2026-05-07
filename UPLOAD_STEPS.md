@@ -1,26 +1,22 @@
-# ProofMoney Core v0.8.0 CI Fix: reset-ledger
+# ProofMoney Core v0.8.0 CI Fix v2: reset-ledger
 
 ## Problem
 
-CI failed in:
-
-```text
-crates/proofmoney-cli/tests/cli_integration.rs
-```
-
-Error:
+CI still failed with:
 
 ```text
 Error: event hash is invalid
 ```
 
-The failure happened after `reset-ledger`, when the integration flow tried to append a release event.
+The previous patch still reinitialized the ledger immediately after reset.
 
 ## Fix
 
-This patch changes `reset-ledger` to remove the local ledger file and reinitialize it through the existing `load_or_init_ledger("v1")` storage path.
+This patch changes `reset-ledger` to only remove the local ledger file.
 
-That keeps reset behavior aligned with the same initialization path used by the rest of the MVP.
+It does not call `load_or_init_ledger("v1")` during reset.
+
+The next command that actually needs ledger state will initialize through the existing normal path.
 
 ## File to Upload
 
@@ -33,7 +29,7 @@ crates/proofmoney-cli/src/commands/local_state.rs
 ## Commit Message
 
 ```text
-fix: align reset ledger with storage initialization
+fix: make reset ledger remove local ledger only
 ```
 
 ## After Commit

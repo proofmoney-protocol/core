@@ -16,18 +16,19 @@ pub fn reset_ledger(yes: bool, json_output: bool) -> Result<()> {
     }
 
     let path = ledger_path()?;
+    let existed_before = path.exists();
 
-    if path.exists() {
+    if existed_before {
         fs::remove_file(&path)?;
     }
-
-    let state = load_or_init_ledger("v1")?;
 
     let output = json!({
         "status": "reset",
         "ledger_path": path.display().to_string(),
-        "ledger_height": state.current_height,
-        "event_count": state.events.len(),
+        "ledger_file_removed": existed_before,
+        "ledger_reinitialized": false,
+        "ledger_height": 0,
+        "event_count": 0,
         "wallet_reset": false,
         "safety_notice": SAFETY_NOTICE
     });
@@ -38,8 +39,10 @@ pub fn reset_ledger(yes: bool, json_output: bool) -> Result<()> {
         println!("Local Ledger Reset\n");
         println!("Status: reset");
         println!("Ledger Path: {}", path.display());
-        println!("Ledger Height: {}", state.current_height);
-        println!("Event Count: {}", state.events.len());
+        println!("Ledger File Removed: {}", existed_before);
+        println!("Ledger Reinitialized: false");
+        println!("Ledger Height: 0");
+        println!("Event Count: 0");
         println!("Wallet Reset: false");
         println!("Safety: {}", SAFETY_NOTICE);
     }
