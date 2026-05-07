@@ -1,39 +1,48 @@
-# ProofMoney Core v0.8.0 CI Fix v2: reset-ledger
+# ProofMoney Core v0.8.0 CI Fix: Serialize CLI Integration Tests
 
 ## Problem
 
-CI still failed with:
+CI still failed in:
+
+```text
+crates/proofmoney-cli/tests/cli_integration.rs
+```
+
+Error:
 
 ```text
 Error: event hash is invalid
 ```
 
-The previous patch still reinitialized the ledger immediately after reset.
+Likely cause:
+
+Rust integration tests run concurrently by default. Multiple CLI tests perform local state operations such as reset, wallet creation, and ledger updates. If any underlying local path is shared or not fully isolated by the OS/path library, tests can collide.
 
 ## Fix
 
-This patch changes `reset-ledger` to only remove the local ledger file.
+This patch:
 
-It does not call `load_or_init_ledger("v1")` during reset.
-
-The next command that actually needs ledger state will initialize through the existing normal path.
+- serializes CLI integration tests with a global mutex;
+- adds XDG path isolation;
+- improves failure output by printing the exact failed CLI args.
 
 ## File to Upload
 
 Upload and overwrite:
 
 ```text
-crates/proofmoney-cli/src/commands/local_state.rs
+crates/proofmoney-cli/tests/cli_integration.rs
 ```
 
 ## Commit Message
 
 ```text
-fix: make reset ledger remove local ledger only
+test: serialize cli integration tests
 ```
 
 ## After Commit
 
 Run GitHub Actions again.
 
-If CI still fails, send the final 30 lines of the failing step.
+If CI still fails, the new log will show the exact CLI command that failed.
+Send the final 30 lines if it fails again.
