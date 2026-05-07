@@ -8,7 +8,13 @@ This repository contains the Rust local MVP prototype for the ProofMoney Integri
 
 ## Current Status
 
-This repository is in local MVP prototype stage.
+Current development target:
+
+```text
+v0.3.0-ownership-and-flow
+```
+
+This repository is a local MVP prototype.
 
 It is not a public network.  
 It does not create PRM with monetary value.  
@@ -24,6 +30,15 @@ The MVP focuses on:
 - Proof of Ownership
 - Proof of Flow
 - Proof of Rule
+- local ledger persistence
+- release event append flow
+- computed supply verification
+- local wallet persistence
+- address inspection
+- message signing
+- transfer event creation
+- local balance tracking
+- insufficient balance rejection
 - Integrity Status CLI
 
 ## Not Included
@@ -41,13 +56,13 @@ The MVP does not include:
 ## Build
 
 ```bash
-cargo build
+cargo build --workspace --all-targets
 ```
 
 ## Test
 
 ```bash
-cargo test
+cargo test --workspace --all-targets
 ```
 
 ## CLI
@@ -56,10 +71,45 @@ cargo test
 cargo run -p proofmoney-cli -- starting-state
 cargo run -p proofmoney-cli -- starting-state --json
 cargo run -p proofmoney-cli -- simulate-release --interval 1
+cargo run -p proofmoney-cli -- simulate-release --interval 1 --append
+cargo run -p proofmoney-cli -- ledger-status
 cargo run -p proofmoney-cli -- verify-supply
 cargo run -p proofmoney-cli -- verify-rule
 cargo run -p proofmoney-cli -- integrity-status
 cargo run -p proofmoney-cli -- create-wallet
+cargo run -p proofmoney-cli -- new-address
+cargo run -p proofmoney-cli -- sign-message --message "verify ownership"
+```
+
+## Local Data
+
+The MVP stores local ledger state at:
+
+```text
+~/.proofmoney/ledger.json
+```
+
+The MVP stores the local test wallet at:
+
+```text
+~/.proofmoney/wallets/default.json
+```
+
+These local files are for MVP testing only.
+
+## Example Local Flow
+
+```bash
+cargo run -p proofmoney-cli -- create-wallet
+cargo run -p proofmoney-cli -- new-address
+cargo run -p proofmoney-cli -- sign-message --message "verify ownership"
+```
+
+For transfer flow testing, first credit an address through a local release event:
+
+```bash
+cargo run -p proofmoney-cli -- simulate-release --interval 1 --recipient <address> --append
+cargo run -p proofmoney-cli -- create-transfer --from <address> --to <address> --amount 1.25 --append
 ```
 
 ## Risk Notice

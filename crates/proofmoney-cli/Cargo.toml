@@ -18,6 +18,7 @@ chrono.workspace = true
 uuid.workspace = true
 
 proofmoney-types = { path = "../proofmoney-types" }
+proofmoney-crypto = { path = "../proofmoney-crypto" }
 proofmoney-ledger = { path = "../proofmoney-ledger" }
 proofmoney-release = { path = "../proofmoney-release" }
 proofmoney-proof = { path = "../proofmoney-proof" }
