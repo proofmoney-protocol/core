@@ -11,14 +11,23 @@ This repository contains the Rust local MVP prototype for the ProofMoney Integri
 Current development target:
 
 ```text
-v0.6.0-external-review
+v0.7.0-internal-review-hardening
 ```
 
-This repository is a local MVP prototype prepared for external Rust, architecture, and security review.
+This repository is a local MVP prototype under founder-led internal review and hardening.
 
 It is not a public network.  
 It does not create PRM with monetary value.  
-It does not represent a token sale, investment opportunity, yield product, airdrop claim, exchange listing, hosted public API, or future allocation right.
+It does not represent a token sale, investment opportunity, yield product, airdrop claim, exchange listing, hosted public API, completed audit, or future allocation right.
+
+## Review Status
+
+```text
+Founder-led internal review in progress
+External audit status: Not audited
+Network status: Local MVP only
+Wallet status: Experimental local MVP wallet only
+```
 
 ## MVP Scope
 
@@ -49,6 +58,8 @@ The MVP currently includes:
 - contributor guide
 - MVP scope freeze
 - external review preparation notes
+- internal review and hardening notes
+- negative test coverage for selected invalid local MVP states
 
 ## Not Included
 
@@ -106,12 +117,10 @@ cargo run -p proofmoney-cli -- prepare-explorer
 - [Contributing Guide](CONTRIBUTING.md)
 - [MVP Scope Freeze](docs/mvp-scope-freeze.md)
 - [External Review Index](docs/external-review-index.md)
-- [Amount Model Review Notes](docs/review-amount-model.md)
-- [Event Hashing and Ledger Review Notes](docs/review-event-hashing-ledger.md)
-- [Wallet and Ownership Risk Review Notes](docs/review-wallet-ownership-risk.md)
-- [Proof of Flow and Balance Review Notes](docs/review-proof-of-flow-balance.md)
-- [Proof Export and Explorer Review Notes](docs/review-proof-export-explorer.md)
-- [Public Developer Announcement Draft](docs/public-developer-announcement-draft.md)
+- [Internal Review Index](docs/internal-review-index.md)
+- [Internal Review Summary](docs/internal-review-summary.md)
+- [Internal Review Findings](docs/internal-review-findings.md)
+- [Negative Test Coverage Notes](docs/negative-test-coverage.md)
 
 ## Local Data
 
@@ -150,14 +159,6 @@ fixtures/
 ```
 
 Fixtures are sample data only. They have no monetary value and contain no private keys.
-
-## External Review Status
-
-The v0.6.0 milestone prepares the repository for external review.
-
-It does not mean ProofMoney has been audited.
-
-It does not mean ProofMoney is production-ready.
 
 ## Risk Notice
 

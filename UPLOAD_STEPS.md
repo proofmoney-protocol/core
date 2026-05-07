@@ -1,16 +1,16 @@
-# ProofMoney Core v0.6.3 Reviewer Outreach Pack
+# ProofMoney Core v0.7.0 Internal Review Hardening Pack
 
 ## Goal
 
-Add reviewer outreach playbook, message templates, review response log template, first review batch plan, and reviewer follow-up templates.
+Upload this pack to the `core` repository to implement the v0.7.0 internal review hardening milestone.
 
-## Target Repository
+Repository:
 
 ```text
 https://github.com/proofmoney-protocol/core
 ```
 
-## Files to Upload
+## Upload
 
 Upload all files in this pack into the repository root.
 
@@ -21,21 +21,30 @@ Do not upload the parent folder itself.
 ## Commit Message
 
 ```text
-docs: add reviewer outreach materials
+core: add internal review hardening v0.7.0
 ```
 
-## After Commit
+## After Upload
 
-No Release is required.
+GitHub Actions should run automatically.
 
-Recommended next steps:
+Expected checks:
 
-1. Pick 5-10 targeted reviewers.
-2. Use `docs/outreach-message-templates.md`.
-3. Track outreach in `docs/reviewer-tracking-sheet.md`.
-4. Record findings in `docs/review-response-log-template.md`.
-5. Start `v0.7.0-review-response` only after meaningful feedback arrives.
+```bash
+cargo fmt --all -- --check
+cargo build --workspace --all-targets
+cargo test --workspace --all-targets
+bash scripts/demo-local.sh
+```
 
-## Note
+If CI fails, open the failed step and send the final error log.
 
-Do not mass-promote this as a token project. Keep outreach technical and review-focused.
+## After CI Passes
+
+You can close Issues 1-7 under:
+
+```text
+v0.7.0-internal-review-hardening
+```
+
+Do not close Issue 8 until the v0.7.0 report is published to the docs repository.
