@@ -1,16 +1,16 @@
-# ProofMoney Core v0.6.0 External Review Pack
+# ProofMoney Core v0.6.1 Review Intake Pack
 
 ## Goal
 
-Upload this pack to the `core` repository to implement the v0.6.0 external review preparation milestone.
+Add GitHub review intake templates, PR template, security policy, review intake process, and reviewer outreach message.
 
-Repository:
+## Target Repository
 
 ```text
 https://github.com/proofmoney-protocol/core
 ```
 
-## Upload
+## Files to Upload
 
 Upload all files in this pack into the repository root.
 
@@ -21,30 +21,22 @@ Do not upload the parent folder itself.
 ## Commit Message
 
 ```text
-docs: prepare external review v0.6.0
+docs: add external review intake process
 ```
 
-## After Upload
+## After Commit
 
-GitHub Actions should run automatically.
+No new Release is required for this small intake patch unless you want to tag `v0.6.1-review-intake`.
 
-Expected checks:
+Recommended next step:
 
-```bash
-cargo fmt --all -- --check
-cargo build --workspace --all-targets
-cargo test --workspace --all-targets
-bash scripts/demo-local.sh
-```
+1. Check GitHub Issues → New Issue.
+2. Confirm the templates appear:
+   - External Review Finding
+   - Documentation Feedback
+3. Check Pull Request template exists.
+4. Check `SECURITY.md` appears in the repository.
 
-If CI fails, open the failed step and send the final error log.
+## Note
 
-## After CI Passes
-
-You can close Issues 1-7 under:
-
-```text
-v0.6.0-external-review
-```
-
-Do not close Issue 8 until the v0.6.0 report is published to the docs repository.
+If the 8 v0.6.0 open Issues still appear later, close them manually when GitHub loads normally.

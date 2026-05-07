@@ -1,52 +1,75 @@
 # Security Policy
 
-ProofMoney Core is experimental software.
+## Current Status
 
-Do not use this software with valuable assets.
+ProofMoney Core is an experimental local MVP prototype.
 
-## Current Security Status
+It is not a public network.
 
-This repository is a local MVP prototype.
+It is not a production wallet.
 
-It is not production wallet software.  
-It is not a public network.  
-It is not a custody system.  
-It does not create PRM with monetary value.
+It has not completed an external security audit.
 
-## Never Share Secrets
+Do not use MVP wallet functionality with valuable assets.
 
-ProofMoney will never ask for:
+## Supported Versions
 
-- private keys;
-- seed phrases;
-- recovery phrases;
-- wallet files;
-- remote access to user devices.
-
-## MVP Wallet Warning
-
-Any private key material generated or displayed by MVP commands is for local testing only.
-
-Do not use MVP-generated keys for valuable assets.
+| Version | Status |
+|---|---|
+| v0.6.0-external-review | Prepared for external review |
+| Earlier MVP versions | Historical prototype releases |
 
 ## Reporting Security Issues
 
-If you discover a serious vulnerability, do not publicly disclose exploitable details before coordination.
+If you believe you found a security issue, please open a GitHub Issue using the **External Review Finding** template unless the finding is sensitive.
 
-Until a dedicated reporting channel is published, open a GitHub issue with limited detail and request private coordination.
+For sensitive findings, avoid posting exploit-ready details publicly.
 
-## Security Scope
+Recommended report content:
 
-Relevant issues include:
+- affected area;
+- affected file or function;
+- severity estimate;
+- reproduction steps;
+- expected behavior;
+- actual behavior;
+- risk explanation;
+- suggested fix if available.
 
-- private key exposure;
-- signature verification failure;
-- supply verification failure;
-- invalid release acceptance;
-- ownership proof failure;
-- flow verification failure;
-- rule verification failure;
-- misleading proof status;
-- unsafe CLI output.
+## Review Scope
 
-Verification reduces trust requirements, but it does not eliminate risk.
+The current review scope is documented at:
+
+```text
+docs/security-review-scope.md
+```
+
+Useful review entry point:
+
+```text
+docs/external-review-index.md
+```
+
+## Out of Scope
+
+The current MVP does not include:
+
+- public network;
+- public consensus;
+- production wallet custody;
+- hosted public API;
+- exchange integration;
+- token sale;
+- airdrop claim;
+- yield product;
+- trading functionality.
+
+## Safety Statement
+
+ProofMoney does not offer, sell, or solicit the purchase of PRM.
+
+PRM does not guarantee price, liquidity, yield, profit, or exchange access.
+
+ProofMoney is experimental and may fail.
+
+Test units, if any, have no monetary value.
