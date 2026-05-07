@@ -17,3 +17,15 @@ pub fn wallet_dir() -> Result<PathBuf> {
 pub fn default_wallet_path() -> Result<PathBuf> {
     Ok(wallet_dir()?.join("default.json"))
 }
+
+pub fn export_dir() -> Result<PathBuf> {
+    Ok(proofmoney_home()?.join("export"))
+}
+
+pub fn explorer_dir() -> Result<PathBuf> {
+    Ok(proofmoney_home()?.join("explorer"))
+}
+
+pub fn explorer_data_dir() -> Result<PathBuf> {
+    Ok(explorer_dir()?.join("data"))
+}

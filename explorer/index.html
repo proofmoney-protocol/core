@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ProofMoney Local Proof Explorer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="mark">PRM</div>
+      <p class="eyebrow">Local MVP Proof Explorer</p>
+      <h1>Money should be proven, not promised.</h1>
+      <p>This static explorer reads local exported ProofMoney JSON files. It is not a public network, token sale, exchange, yield product, or production wallet.</p>
+    </section>
+
+    <section class="grid">
+      <article><h2>Integrity Status</h2><pre id="integrity">Loading...</pre></article>
+      <article><h2>Ledger Status</h2><pre id="ledger">Loading...</pre></article>
+      <article><h2>Supply</h2><pre id="supply">Loading...</pre></article>
+      <article><h2>Rule</h2><pre id="rule">Loading...</pre></article>
+      <article><h2>Release Events</h2><pre id="release">Loading...</pre></article>
+      <article><h2>Transfer Events</h2><pre id="transfer">Loading...</pre></article>
+    </section>
+
+    <section class="risk">
+      <h2>Risk Notice</h2>
+      <p>ProofMoney local MVP data only. Test units have no monetary value. Do not use MVP wallet software with valuable assets.</p>
+    </section>
+  </main>
+
+  <script>
+    const files = {
+      integrity: "data/integrity-status.json",
+      ledger: "data/ledger-status.json",
+      supply: "data/supply.json",
+      rule: "data/rule.json",
+      release: "data/release-events.json",
+      transfer: "data/transfer-events.json"
+    };
+
+    for (const [id, file] of Object.entries(files)) {
+      fetch(file)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById(id).textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+          document.getElementById(id).textContent = "Unable to load " + file + "\n" + error;
+        });
+    }
+  </script>
+</body>
+</html>

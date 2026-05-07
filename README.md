@@ -11,7 +11,7 @@ This repository contains the Rust local MVP prototype for the ProofMoney Integri
 Current development target:
 
 ```text
-v0.3.0-ownership-and-flow
+v0.4.0-proof-explorer-api
 ```
 
 This repository is a local MVP prototype.
@@ -34,11 +34,13 @@ The MVP focuses on:
 - release event append flow
 - computed supply verification
 - local wallet persistence
-- address inspection
-- message signing
 - transfer event creation
 - local balance tracking
-- insufficient balance rejection
+- local proof JSON export
+- proof snapshot generation
+- release event proof listing
+- transfer event proof listing
+- static local Proof Explorer prototype
 - Integrity Status CLI
 
 ## Not Included
@@ -51,7 +53,8 @@ The MVP does not include:
 - private allocation;
 - airdrop claim;
 - yield product;
-- production wallet security.
+- production wallet security;
+- hosted public API.
 
 ## Build
 
@@ -69,16 +72,15 @@ cargo test --workspace --all-targets
 
 ```bash
 cargo run -p proofmoney-cli -- starting-state
-cargo run -p proofmoney-cli -- starting-state --json
-cargo run -p proofmoney-cli -- simulate-release --interval 1
 cargo run -p proofmoney-cli -- simulate-release --interval 1 --append
 cargo run -p proofmoney-cli -- ledger-status
 cargo run -p proofmoney-cli -- verify-supply
-cargo run -p proofmoney-cli -- verify-rule
-cargo run -p proofmoney-cli -- integrity-status
-cargo run -p proofmoney-cli -- create-wallet
-cargo run -p proofmoney-cli -- new-address
-cargo run -p proofmoney-cli -- sign-message --message "verify ownership"
+cargo run -p proofmoney-cli -- list-release-events
+cargo run -p proofmoney-cli -- list-transfer-events
+cargo run -p proofmoney-cli -- export-proof-snapshot --json
+cargo run -p proofmoney-cli -- export-proof-snapshot --output proof-snapshot.json
+cargo run -p proofmoney-cli -- export-proof-site-data
+cargo run -p proofmoney-cli -- prepare-explorer
 ```
 
 ## Local Data
@@ -95,22 +97,19 @@ The MVP stores the local test wallet at:
 ~/.proofmoney/wallets/default.json
 ```
 
+The MVP exports local proof JSON files to:
+
+```text
+~/.proofmoney/export/
+```
+
+The MVP prepares local Proof Explorer files at:
+
+```text
+~/.proofmoney/explorer/
+```
+
 These local files are for MVP testing only.
-
-## Example Local Flow
-
-```bash
-cargo run -p proofmoney-cli -- create-wallet
-cargo run -p proofmoney-cli -- new-address
-cargo run -p proofmoney-cli -- sign-message --message "verify ownership"
-```
-
-For transfer flow testing, first credit an address through a local release event:
-
-```bash
-cargo run -p proofmoney-cli -- simulate-release --interval 1 --recipient <address> --append
-cargo run -p proofmoney-cli -- create-transfer --from <address> --to <address> --amount 1.25 --append
-```
 
 ## Risk Notice
 

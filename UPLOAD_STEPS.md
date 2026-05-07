@@ -1,30 +1,47 @@
-# ProofMoney Core v0.3.1 Compile Fix Upload Steps
+# ProofMoney Core v0.4.0 Proof Explorer & API Pack
 
-## Target Repository
+## Goal
+
+Upload this pack to the `core` repository to implement the v0.4.0 Proof Explorer and local Proof API milestone.
+
+Repository:
 
 ```text
 https://github.com/proofmoney-protocol/core
 ```
 
-## Files to Upload
+## Upload
 
-Upload and overwrite:
+Upload all files in this pack into the repository root.
 
-```text
-crates/proofmoney-types/src/event.rs
-crates/proofmoney-proof/Cargo.toml
-CORE_V0.3.1_COMPILE_FIX.md
-UPLOAD_STEPS.md
-```
+Important:
+
+Do not upload the parent folder itself.
 
 ## Commit Message
 
 ```text
-core: fix v0.3 ownership flow compile errors
+core: implement proof explorer api milestone v0.4.0
 ```
 
-## After Commit
+## After Upload
 
-GitHub Actions will run again automatically.
+GitHub Actions should run automatically.
 
-If CI fails again, open the failed step and send the final error log.
+Expected commands covered by CI:
+
+```bash
+cargo fmt --all -- --check
+cargo build --workspace --all-targets
+cargo test --workspace --all-targets
+cargo run -p proofmoney-cli -- list-release-events
+cargo run -p proofmoney-cli -- list-release-events --json
+cargo run -p proofmoney-cli -- list-transfer-events
+cargo run -p proofmoney-cli -- list-transfer-events --json
+cargo run -p proofmoney-cli -- export-proof-snapshot --json
+cargo run -p proofmoney-cli -- export-proof-snapshot --output /tmp/proof-snapshot.json
+cargo run -p proofmoney-cli -- export-proof-site-data
+cargo run -p proofmoney-cli -- prepare-explorer
+```
+
+If CI fails, open the failed step and send the final error log.

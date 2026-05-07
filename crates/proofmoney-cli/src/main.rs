@@ -129,6 +129,33 @@ enum Commands {
         #[arg(long)]
         json: bool,
     },
+
+    /// Export a complete local proof snapshot.
+    ExportProofSnapshot {
+        #[arg(long)]
+        output: Option<String>,
+
+        #[arg(long)]
+        json: bool,
+    },
+
+    /// Export proof JSON files for local Proof Explorer usage.
+    ExportProofSiteData,
+
+    /// List local release event proofs.
+    ListReleaseEvents {
+        #[arg(long)]
+        json: bool,
+    },
+
+    /// List local transfer event proofs.
+    ListTransferEvents {
+        #[arg(long)]
+        json: bool,
+    },
+
+    /// Prepare a static local Proof Explorer.
+    PrepareExplorer,
 }
 
 fn main() -> Result<()> {
@@ -168,5 +195,12 @@ fn main() -> Result<()> {
             json,
         } => commands::transfer::create_transfer(from, to, amount, append, json),
         Commands::VerifyFlow { tx, json } => commands::transfer::verify_flow_by_tx(tx, json),
+        Commands::ExportProofSnapshot { output, json } => {
+            commands::proof_api::export_proof_snapshot(output, json)
+        }
+        Commands::ExportProofSiteData => commands::proof_api::export_proof_site_data(),
+        Commands::ListReleaseEvents { json } => commands::proof_api::list_release_events(json),
+        Commands::ListTransferEvents { json } => commands::proof_api::list_transfer_events(json),
+        Commands::PrepareExplorer => commands::proof_api::prepare_explorer(),
     }
 }
