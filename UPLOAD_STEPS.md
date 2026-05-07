@@ -1,11 +1,11 @@
-# ProofMoney Core v0.8.0 CI Fix: Serialize CLI Integration Tests
+# ProofMoney Core v0.8.0 CI Fix: release event hash
 
 ## Problem
 
-CI still failed in:
+CI fails on:
 
 ```text
-crates/proofmoney-cli/tests/cli_integration.rs
+simulate-release --interval 1 --append
 ```
 
 Error:
@@ -14,35 +14,32 @@ Error:
 Error: event hash is invalid
 ```
 
-Likely cause:
-
-Rust integration tests run concurrently by default. Multiple CLI tests perform local state operations such as reset, wallet creation, and ledger updates. If any underlying local path is shared or not fully isolated by the OS/path library, tests can collide.
-
 ## Fix
 
-This patch:
+This patch rewrites the CLI release simulation to create the release event directly and hash it using the same ledger hashing function used by `apply_event`:
 
-- serializes CLI integration tests with a global mutex;
-- adds XDG path isolation;
-- improves failure output by printing the exact failed CLI args.
+```text
+proofmoney_ledger::hash_event
+```
+
+That removes the mismatch between release-event construction and ledger-event verification.
 
 ## File to Upload
 
 Upload and overwrite:
 
 ```text
-crates/proofmoney-cli/tests/cli_integration.rs
+crates/proofmoney-cli/src/commands/release.rs
 ```
 
 ## Commit Message
 
 ```text
-test: serialize cli integration tests
+fix: hash simulated release events with ledger hasher
 ```
 
 ## After Commit
 
 Run GitHub Actions again.
 
-If CI still fails, the new log will show the exact CLI command that failed.
-Send the final 30 lines if it fails again.
+If CI still fails, send the final 30 lines of the failing step.

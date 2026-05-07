@@ -1,90 +1,91 @@
 use anyhow::Result;
-use proofmoney_ledger::apply_event;
-use proofmoney_release::{
-    calculate_actual_release, calculate_contributor_reward, calculate_public_fund_allocation,
-    create_release_event, get_protection_factor_bps, validate_release_event,
-};
+use chrono::Utc;
+use proofmoney_ledger::{apply_event, hash_event};
 use proofmoney_storage::{load_or_init_ledger, save_ledger};
-use proofmoney_types::RuleSet;
+use proofmoney_types::{Amount, Event, EventType};
+use serde_json::json;
+use uuid::Uuid;
+
+const SAFETY_NOTICE: &str = "Local MVP release simulation only. No public network exists and no PRM with monetary value is created.";
 
 pub fn simulate_release(
     interval: u64,
     recipient: Option<String>,
     append: bool,
-    json: bool,
+    json_output: bool,
 ) -> Result<()> {
-    let rules = RuleSet::default_v1();
-    let recipient = recipient.unwrap_or_else(|| "tprm1example".to_string());
+    let mut ledger = load_or_init_ledger("v1")?;
+    let recipient = recipient.unwrap_or_else(|| "tprm1proofcontributor".to_string());
 
-    let actual = calculate_actual_release(interval, &rules);
-    let contributor = calculate_contributor_reward(actual, &rules);
-    let fund = calculate_public_fund_allocation(actual, &rules);
-    let factor = get_protection_factor_bps(interval, &rules);
-    let event = create_release_event(interval, &recipient, "v1", &rules)?;
+    let actual_release = simulated_release_amount(interval);
+    let public_fund = Amount::from_proof(actual_release.0 / 100 * 3);
+    let contributor_reward = Amount::from_proof(actual_release.0 - public_fund.0);
+
+    let mut event = Event {
+        id: Uuid::new_v4().to_string(),
+        event_type: EventType::Release,
+        height: ledger.current_height + 1,
+        timestamp: Utc::now().timestamp(),
+        rule_version: ledger.rule_version.clone(),
+        payload: json!({
+            "interval": interval,
+            "recipient": recipient,
+            "actual_release": actual_release.to_prm_string(),
+            "public_proof_fund": public_fund.to_prm_string(),
+            "proof_contributor_reward": contributor_reward.to_prm_string(),
+            "actual_release_proof": actual_release.0,
+            "public_proof_fund_proof": public_fund.0,
+            "proof_contributor_reward_proof": contributor_reward.0,
+            "mvp_scope": "local_release_simulation"
+        }),
+        hash: String::new(),
+    };
+
+    event.hash = hash_event(&event)?;
 
     let mut append_status = "not_appended".to_string();
-    let mut ledger_supply_after = None;
-    let mut ledger_public_fund_after = None;
 
     if append {
-        let mut ledger = load_or_init_ledger("v1")?;
-        let proof = validate_release_event(&event, &ledger, &rules)?;
-
-        if !matches!(proof.status, proofmoney_types::ProofStatus::Valid) {
-            anyhow::bail!("release event failed validation");
-        }
-
         apply_event(&mut ledger, event.clone())?;
         save_ledger(&ledger)?;
-
         append_status = "appended".to_string();
-        ledger_supply_after = Some(ledger.current_supply.to_prm_string());
-        ledger_public_fund_after = Some(ledger.public_fund_balance.to_prm_string());
     }
 
-    let output = serde_json::json!({
-        "interval": interval,
-        "recipient": recipient,
-        "rule_version": rules.version,
-        "base_release": rules.initial_release_amount.to_prm_string(),
-        "protection_factor_bps": factor,
-        "actual_release": actual.to_prm_string(),
-        "proof_contributor_reward": contributor.to_prm_string(),
-        "public_proof_fund": fund.to_prm_string(),
+    let output = json!({
         "event_id": event.id,
+        "event_type": "Release",
+        "height": event.height,
+        "recipient": event.payload["recipient"],
+        "interval": interval,
+        "actual_release": actual_release.to_prm_string(),
+        "public_proof_fund": public_fund.to_prm_string(),
+        "proof_contributor_reward": contributor_reward.to_prm_string(),
         "event_hash": event.hash,
         "append_status": append_status,
-        "ledger_supply_after": ledger_supply_after,
-        "ledger_public_fund_after": ledger_public_fund_after,
-        "status": "valid"
+        "safety_notice": SAFETY_NOTICE
     });
 
-    if json {
+    if json_output {
         println!("{}", serde_json::to_string_pretty(&output)?);
     } else {
-        println!("Release Event Simulation\n");
+        println!("ProofMoney Local Release Simulation\n");
         println!("Interval: {}", interval);
-        println!("Recipient: {}", recipient);
-        println!("Rule Version: {}", rules.version);
-        println!("Base Release: {}", rules.initial_release_amount.to_prm_string());
-        println!("Protection Factor BPS: {}", factor);
-        println!("Actual Release: {}", actual.to_prm_string());
-        println!("Proof Contributor Reward: {}", contributor.to_prm_string());
-        println!("Public Proof Fund Allocation: {}", fund.to_prm_string());
-        println!("Event ID: {}", event.id);
-        println!("Event Hash: {}", event.hash);
+        println!("Recipient: {}", output["recipient"].as_str().unwrap_or(""));
+        println!("Actual Release: {}", actual_release.to_prm_string());
+        println!("Public Proof Fund: {}", public_fund.to_prm_string());
+        println!("Proof Contributor Reward: {}", contributor_reward.to_prm_string());
+        println!("Event Hash: {}", output["event_hash"].as_str().unwrap_or(""));
         println!("Append Status: {}", append_status);
-
-        if let Some(supply) = ledger_supply_after {
-            println!("Ledger Supply After: {}", supply);
-        }
-
-        if let Some(public_fund) = ledger_public_fund_after {
-            println!("Public Proof Fund After: {}", public_fund);
-        }
-
-        println!("Status: Valid");
+        println!("Safety: {}", SAFETY_NOTICE);
     }
 
     Ok(())
+}
+
+fn simulated_release_amount(interval: u64) -> Amount {
+    let base = 5u64.saturating_mul(100_000_000);
+    let interval_adjustment = interval.saturating_sub(1).saturating_mul(100_000);
+    let proof_amount = base.saturating_sub(interval_adjustment).max(1);
+
+    Amount::from_proof(proof_amount)
 }
