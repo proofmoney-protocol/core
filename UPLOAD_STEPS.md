@@ -1,51 +1,50 @@
-# ProofMoney Core CLI Verify Name Fix v0.1.3
+# ProofMoney Core Rustfmt Restore Pack v0.2.1
 
-## What this fixes
+## Goal
 
-CI failed because `crates/proofmoney-cli/src/commands/verify.rs` imported:
+Restore strict rustfmt check in GitHub Actions and close Issue 7 if CI passes.
 
-```rust
-use proofmoney_proof::{verify_rule, verify_supply};
-```
-
-and also defined local CLI functions with the same names:
-
-```rust
-pub fn verify_supply(...)
-pub fn verify_rule(...)
-```
-
-Rust does not allow the imported function names and local function names to exist in the same value namespace.
-
-This patch aliases the imported proof functions:
-
-```rust
-verify_supply as proof_verify_supply
-verify_rule as proof_verify_rule
-```
-
-Then the CLI wrapper functions can keep their original names.
-
-## Target repository
+## Target Repository
 
 ```text
 https://github.com/proofmoney-protocol/core
 ```
 
-## File to upload and overwrite
+## Files to Upload
+
+Upload and overwrite these files:
 
 ```text
+.github/workflows/rust-ci.yml
 crates/proofmoney-cli/src/commands/verify.rs
+CORE_V0.2.1_RUSTFMT_RESTORE.md
+UPLOAD_STEPS.md
 ```
 
-## Commit message
+## Commit Message
 
 ```text
-core: fix CLI verify command name conflict
+ci: restore strict rustfmt check
 ```
 
-## After commit
+## After Commit
 
-GitHub Actions will run again automatically.
+Open:
 
-If it fails again, open the failed step and send the new error log.
+```text
+https://github.com/proofmoney-protocol/core/actions
+```
+
+Wait for Rust CI.
+
+If the CI passes:
+
+1. close Issue 7;
+2. close Issue 8 if not already closed;
+3. close the `v0.2.0-local-ledger` milestone if all related issues are closed.
+
+If the CI fails:
+
+1. open the failed `Check formatting` step;
+2. copy the full rustfmt diff;
+3. send it for another patch.
