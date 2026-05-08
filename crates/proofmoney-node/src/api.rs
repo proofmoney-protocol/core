@@ -3,6 +3,15 @@ use serde::{Deserialize, Serialize};
 use crate::{NodeConfig, TESTNET_SAFETY_NOTICE};
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub struct HealthResponse {
+    pub status: String,
+    pub service: String,
+    pub node_version: String,
+    pub mode: String,
+    pub safety_notice: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct NodeStatusResponse {
     pub node_version: String,
     pub network: String,
@@ -45,6 +54,19 @@ pub enum ProofQueryType {
     IntegrityStatus,
 }
 
+impl ProofQueryType {
+    pub fn from_path(value: &str) -> Option<Self> {
+        match value {
+            "starting-state" => Some(Self::StartingState),
+            "supply" => Some(Self::ProofOfSupply),
+            "rule" => Some(Self::ProofOfRule),
+            "flow" => Some(Self::ProofOfFlow),
+            "integrity-status" => Some(Self::IntegrityStatus),
+            _ => None,
+        }
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct ProofQueryResponse {
     pub proof_type: ProofQueryType,
@@ -60,6 +82,16 @@ pub struct EventListQuery {
     pub limit: usize,
     pub cursor: Option<String>,
     pub event_type: Option<String>,
+}
+
+impl Default for EventListQuery {
+    fn default() -> Self {
+        Self {
+            limit: 50,
+            cursor: None,
+            event_type: None,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
@@ -123,6 +155,18 @@ pub struct ApiErrorResponse {
     pub message: String,
     pub recoverable: bool,
     pub safety_notice: String,
+}
+
+impl HealthResponse {
+    pub fn from_config(config: &NodeConfig) -> Self {
+        Self {
+            status: "ok".to_string(),
+            service: "proofmoney-node".to_string(),
+            node_version: config.node_version.clone(),
+            mode: format!("{:?}", config.mode),
+            safety_notice: TESTNET_SAFETY_NOTICE.to_string(),
+        }
+    }
 }
 
 impl NodeStatusResponse {

@@ -4,17 +4,17 @@ ProofMoney is an open protocol initiative for **verifiable money integrity**.
 
 > If money cannot be verified, it is only a promise.
 
-This repository contains the Rust local MVP baseline, public testnet design materials, and the first minimal testnet node/API skeleton for the ProofMoney Integrity Stack.
+This repository contains the Rust local MVP baseline, public testnet design materials, testnet node/API skeleton, and local read-only API server skeleton for the ProofMoney Integrity Stack.
 
 ## Current Status
 
 Current development target:
 
 ```text
-v1.2.0-testnet-node-api
+v1.3.0-testnet-read-api-server
 ```
 
-ProofMoney Core has reached its first stable local MVP baseline, completed public testnet design, and now includes the first minimal testnet node/API model skeleton.
+ProofMoney Core now includes a local read-only API server skeleton for future testnet API development.
 
 This is still not a public testnet launch.
 
@@ -27,10 +27,11 @@ It does not represent a token sale, investment opportunity, yield product, airdr
 ```text
 Local MVP baseline: v1.0.0-local-mvp-freeze
 Testnet design: v1.1.0-testnet-design
-Current workstream: v1.2.0-testnet-node-api
+Testnet node/API skeleton: v1.2.0-testnet-node-api
+Current workstream: v1.3.0-testnet-read-api-server
 External audit status: Not audited
 Network status: Local MVP only
-Public testnet status: Node/API skeleton only
+Public testnet status: Local read-only API server skeleton only
 Mainnet status: Not launched
 Wallet status: Experimental local MVP wallet only
 Token sale status: Not offered
@@ -65,6 +66,7 @@ Token sale status: Not offered
 - local MVP baseline documents
 - public testnet design documents
 - minimal testnet node/API model skeleton
+- local read-only API server skeleton
 
 ## Not Included
 
@@ -110,8 +112,9 @@ bash scripts/demo-transfer-local.sh
 - [Core Documentation Index](docs/core-documentation-index-v1.0.0.md)
 - [Protocol Spec Index](docs/specs/protocol-spec-index-v0.1.md)
 - [Testnet Design Index](docs/testnet/testnet-design-index-v1.1.0.md)
-- [Testnet Node API README](crates/proofmoney-node/README.md)
 - [Testnet Node API Model](docs/testnet/testnet-node-api-v1.2.0.md)
+- [Testnet Read API Server](docs/testnet/testnet-read-api-server-v1.3.0.md)
+- [proofmoney-node README](crates/proofmoney-node/README.md)
 - [Security Review Scope](docs/security-review-scope.md)
 - [Contributing Guide](CONTRIBUTING.md)
 

@@ -3,15 +3,15 @@
 ## Status
 
 ```text
-Version: v1.2.0-testnet-node-api
-Status: Minimal testnet node/API skeleton
+Version: v1.3.0-testnet-read-api-server
+Status: Local read-only API server skeleton
 Public testnet: Not launched
 Mainnet: Not launched
 ```
 
 ## Purpose
 
-`proofmoney-node` is the first minimal node/API model skeleton for future ProofMoney public testnet development.
+`proofmoney-node` is the first minimal node/API model and local read-only API server skeleton for future ProofMoney public testnet development.
 
 It currently provides:
 
@@ -22,8 +22,41 @@ It currently provides:
 - event list model;
 - disabled-by-default event submission model;
 - disabled-by-default faucet model;
-- node service placeholder;
-- unit tests for JSON serialization and safety boundaries.
+- local read-only API server route dispatcher;
+- unit tests for endpoint JSON responses and safety boundaries.
+
+## Local Read-Only Routes
+
+Modeled local read-only routes:
+
+```text
+GET /health
+GET /status
+GET /ledger/status
+GET /proofs/:proof_type
+GET /events
+GET /events/releases
+GET /events/transfers
+```
+
+Supported proof path values:
+
+```text
+starting-state
+supply
+rule
+flow
+integrity-status
+```
+
+## Disabled APIs
+
+These remain disabled by default:
+
+```text
+POST /events
+POST /faucet/request
+```
 
 ## What This Is Not
 
@@ -31,7 +64,7 @@ This crate is not:
 
 - a live public testnet node;
 - a mainnet node;
-- a public API server;
+- a hosted public API server;
 - a consensus implementation;
 - a production wallet;
 - a faucet launch;
@@ -42,6 +75,6 @@ This crate is not:
 
 ## Safety Boundary
 
-This crate is a testnet node/API skeleton only.
+This crate is a local read-only testnet API server skeleton only.
 
 Testnet units, if any in a future milestone, have no monetary value and do not imply future PRM allocation.
