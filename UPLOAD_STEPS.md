@@ -1,8 +1,8 @@
-# ProofMoney Core v1.0.0 Local MVP Freeze Pack
+# ProofMoney Core v1.1.0 Testnet Design Pack
 
 ## Goal
 
-Upload this pack to the `core` repository to implement the v1.0.0 local MVP baseline freeze milestone.
+Upload this pack to the `core` repository to implement the v1.1.0 public testnet design milestone.
 
 Repository:
 
@@ -21,7 +21,7 @@ Do not upload the parent folder itself.
 ## Commit Message
 
 ```text
-docs: freeze local MVP baseline v1.0.0
+docs: add public testnet design v1.1.0
 ```
 
 ## After Upload
@@ -45,7 +45,7 @@ If CI fails, open the failed step and send the final error log.
 You can close Issues 1-7 under:
 
 ```text
-v1.0.0-local-mvp-freeze
+v1.1.0-testnet-design
 ```
 
-Do not close Issue 8 until the v1.0.0 report is published to the docs repository.
+Do not close Issue 8 until the v1.1.0 report is published to the docs repository.

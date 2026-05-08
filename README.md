@@ -4,32 +4,35 @@ ProofMoney is an open protocol initiative for **verifiable money integrity**.
 
 > If money cannot be verified, it is only a promise.
 
-This repository contains the Rust local MVP baseline for the ProofMoney Integrity Stack.
+This repository contains the Rust local MVP baseline and public testnet design materials for the ProofMoney Integrity Stack.
 
 ## Current Status
 
-Current baseline:
+Current development target:
 
 ```text
-v1.0.0-local-mvp-freeze
+v1.1.0-testnet-design
 ```
 
-ProofMoney Core has reached its first stable local MVP baseline.
+ProofMoney Core has reached its first stable local MVP baseline and is now entering public testnet architecture design.
 
-This repository is still local MVP software.
+This is still design work.
 
-It is not a public network.  
+It is not a public testnet launch.  
+It is not a mainnet launch.  
 It does not create PRM with monetary value.  
 It does not represent a token sale, investment opportunity, yield product, airdrop claim, exchange listing, hosted public API, completed audit, or future allocation right.
 
 ## Baseline Status
 
 ```text
-Baseline type: Stable local MVP baseline
+Local MVP baseline: v1.0.0-local-mvp-freeze
+Current workstream: v1.1.0-testnet-design
 External audit status: Not audited
 Network status: Local MVP only
+Public testnet status: Design phase only
+Mainnet status: Not launched
 Wallet status: Experimental local MVP wallet only
-Public network status: Not launched
 Token sale status: Not offered
 ```
 
@@ -58,25 +61,16 @@ Token sale status: Not offered
 - developer quickstart
 - local demo scripts
 - isolated CLI integration tests
-- sample proof fixtures
-- architecture overview
-- security review scope
-- contributor guide
-- MVP scope freeze
-- internal review and hardening notes
 - protocol specification documents
-- local MVP baseline manifest
-- local MVP command reference
-- local MVP demo guide
-- local MVP risk and limitation summary
-- local MVP release history
-- local MVP public summary
+- local MVP baseline documents
+- public testnet design documents
 
 ## Not Included
 
-The local MVP does not include:
+The current repository does not include:
 
-- public network;
+- live public testnet;
+- mainnet;
 - public consensus;
 - exchange integration;
 - PRM sale;
@@ -107,64 +101,21 @@ bash scripts/demo-local.sh
 bash scripts/demo-transfer-local.sh
 ```
 
-## Core CLI Examples
-
-```bash
-cargo run -p proofmoney-cli -- reset-ledger --yes
-cargo run -p proofmoney-cli -- starting-state
-cargo run -p proofmoney-cli -- simulate-release --interval 1 --append
-cargo run -p proofmoney-cli -- ledger-status
-cargo run -p proofmoney-cli -- validate-local-state
-cargo run -p proofmoney-cli -- detect-tampering
-cargo run -p proofmoney-cli -- verify-supply
-cargo run -p proofmoney-cli -- create-wallet --force
-cargo run -p proofmoney-cli -- new-address
-cargo run -p proofmoney-cli -- export-proof-snapshot --json
-cargo run -p proofmoney-cli -- prepare-explorer
-```
-
 ## Key Documentation
 
 - [Local MVP Baseline Manifest](docs/local-mvp-baseline-v1.0.0.md)
 - [Core Documentation Index](docs/core-documentation-index-v1.0.0.md)
-- [Local MVP Command Reference](docs/local-mvp-command-reference-v1.0.0.md)
-- [Local MVP Demo Guide](docs/local-mvp-demo-guide-v1.0.0.md)
-- [Local MVP Risk and Limitations](docs/local-mvp-risk-and-limitations-v1.0.0.md)
-- [Local MVP Release History](docs/local-mvp-release-history-v1.0.0.md)
-- [Local MVP Public Summary](docs/local-mvp-public-summary-v1.0.0.md)
 - [Protocol Spec Index](docs/specs/protocol-spec-index-v0.1.md)
-- [Developer Quickstart](docs/developer-quickstart.md)
-- [Architecture Overview](docs/architecture-overview.md)
+- [Testnet Design Index](docs/testnet/testnet-design-index-v1.1.0.md)
+- [Testnet Goals and Scope](docs/testnet/testnet-goals-and-scope-v1.1.0.md)
+- [Testnet Node Architecture](docs/testnet/testnet-node-architecture-v1.1.0.md)
+- [Testnet Network Message Model](docs/testnet/testnet-network-message-model-v1.1.0.md)
+- [Testnet Ledger Sync Model](docs/testnet/testnet-ledger-sync-model-v1.1.0.md)
+- [Testnet Faucet Boundary](docs/testnet/testnet-faucet-boundary-v1.1.0.md)
+- [Testnet Explorer Requirements](docs/testnet/testnet-explorer-requirements-v1.1.0.md)
+- [Testnet Wallet Safety Policy](docs/testnet/testnet-wallet-safety-policy-v1.1.0.md)
 - [Security Review Scope](docs/security-review-scope.md)
 - [Contributing Guide](CONTRIBUTING.md)
-
-## Local Data
-
-The MVP stores local ledger state at:
-
-```text
-~/.proofmoney/ledger.json
-```
-
-The MVP stores the local test wallet at:
-
-```text
-~/.proofmoney/wallets/default.json
-```
-
-The MVP exports local proof JSON files to:
-
-```text
-~/.proofmoney/export/
-```
-
-The MVP prepares local Proof Explorer files at:
-
-```text
-~/.proofmoney/explorer/
-```
-
-These local files are for MVP testing only.
 
 ## Risk Notice
 
