@@ -4,34 +4,36 @@ ProofMoney is an open protocol initiative for **verifiable money integrity**.
 
 > If money cannot be verified, it is only a promise.
 
-This repository contains the Rust local MVP prototype for the ProofMoney Integrity Stack.
+This repository contains the Rust local MVP baseline for the ProofMoney Integrity Stack.
 
 ## Current Status
 
-Current development target:
+Current baseline:
 
 ```text
-v0.9.0-protocol-spec-freeze
+v1.0.0-local-mvp-freeze
 ```
 
-This repository is a local MVP prototype under protocol specification freeze.
+ProofMoney Core has reached its first stable local MVP baseline.
+
+This repository is still local MVP software.
 
 It is not a public network.  
 It does not create PRM with monetary value.  
 It does not represent a token sale, investment opportunity, yield product, airdrop claim, exchange listing, hosted public API, completed audit, or future allocation right.
 
-## Review Status
+## Baseline Status
 
 ```text
-Founder-led protocol specification freeze
+Baseline type: Stable local MVP baseline
 External audit status: Not audited
 Network status: Local MVP only
 Wallet status: Experimental local MVP wallet only
+Public network status: Not launched
+Token sale status: Not offered
 ```
 
-## MVP Scope
-
-The MVP currently includes:
+## Local MVP Includes
 
 - Starting State Proof
 - Proof of Issuance
@@ -63,12 +65,19 @@ The MVP currently includes:
 - MVP scope freeze
 - internal review and hardening notes
 - protocol specification documents
+- local MVP baseline manifest
+- local MVP command reference
+- local MVP demo guide
+- local MVP risk and limitation summary
+- local MVP release history
+- local MVP public summary
 
 ## Not Included
 
-The MVP does not include:
+The local MVP does not include:
 
 - public network;
+- public consensus;
 - exchange integration;
 - PRM sale;
 - private allocation;
@@ -114,19 +123,18 @@ cargo run -p proofmoney-cli -- export-proof-snapshot --json
 cargo run -p proofmoney-cli -- prepare-explorer
 ```
 
-## Documentation
+## Key Documentation
 
+- [Local MVP Baseline Manifest](docs/local-mvp-baseline-v1.0.0.md)
+- [Core Documentation Index](docs/core-documentation-index-v1.0.0.md)
+- [Local MVP Command Reference](docs/local-mvp-command-reference-v1.0.0.md)
+- [Local MVP Demo Guide](docs/local-mvp-demo-guide-v1.0.0.md)
+- [Local MVP Risk and Limitations](docs/local-mvp-risk-and-limitations-v1.0.0.md)
+- [Local MVP Release History](docs/local-mvp-release-history-v1.0.0.md)
+- [Local MVP Public Summary](docs/local-mvp-public-summary-v1.0.0.md)
+- [Protocol Spec Index](docs/specs/protocol-spec-index-v0.1.md)
 - [Developer Quickstart](docs/developer-quickstart.md)
 - [Architecture Overview](docs/architecture-overview.md)
-- [CLI Integration Hardening](docs/cli-integration-hardening.md)
-- [Protocol Spec Index](docs/specs/protocol-spec-index-v0.1.md)
-- [Amount Model Specification](docs/specs/amount-model-v0.1.md)
-- [Event Schema Specification](docs/specs/event-schema-v0.1.md)
-- [Proof Result Schema Specification](docs/specs/proof-result-schema-v0.1.md)
-- [Proof Release Curve Specification](docs/specs/proof-release-curve-v0.1.md)
-- [Local Ledger State Specification](docs/specs/local-ledger-state-v0.1.md)
-- [Proof Export JSON Specification](docs/specs/proof-export-json-v0.1.md)
-- [Wallet and Ownership Safety Specification](docs/specs/wallet-ownership-safety-v0.1.md)
 - [Security Review Scope](docs/security-review-scope.md)
 - [Contributing Guide](CONTRIBUTING.md)
 
