@@ -4,21 +4,20 @@ ProofMoney is an open protocol initiative for **verifiable money integrity**.
 
 > If money cannot be verified, it is only a promise.
 
-This repository contains the Rust local MVP baseline and public testnet design materials for the ProofMoney Integrity Stack.
+This repository contains the Rust local MVP baseline, public testnet design materials, and the first minimal testnet node/API skeleton for the ProofMoney Integrity Stack.
 
 ## Current Status
 
 Current development target:
 
 ```text
-v1.1.0-testnet-design
+v1.2.0-testnet-node-api
 ```
 
-ProofMoney Core has reached its first stable local MVP baseline and is now entering public testnet architecture design.
+ProofMoney Core has reached its first stable local MVP baseline, completed public testnet design, and now includes the first minimal testnet node/API model skeleton.
 
-This is still design work.
+This is still not a public testnet launch.
 
-It is not a public testnet launch.  
 It is not a mainnet launch.  
 It does not create PRM with monetary value.  
 It does not represent a token sale, investment opportunity, yield product, airdrop claim, exchange listing, hosted public API, completed audit, or future allocation right.
@@ -27,10 +26,11 @@ It does not represent a token sale, investment opportunity, yield product, airdr
 
 ```text
 Local MVP baseline: v1.0.0-local-mvp-freeze
-Current workstream: v1.1.0-testnet-design
+Testnet design: v1.1.0-testnet-design
+Current workstream: v1.2.0-testnet-node-api
 External audit status: Not audited
 Network status: Local MVP only
-Public testnet status: Design phase only
+Public testnet status: Node/API skeleton only
 Mainnet status: Not launched
 Wallet status: Experimental local MVP wallet only
 Token sale status: Not offered
@@ -64,6 +64,7 @@ Token sale status: Not offered
 - protocol specification documents
 - local MVP baseline documents
 - public testnet design documents
+- minimal testnet node/API model skeleton
 
 ## Not Included
 
@@ -72,6 +73,8 @@ The current repository does not include:
 - live public testnet;
 - mainnet;
 - public consensus;
+- live faucet;
+- live public write API;
 - exchange integration;
 - PRM sale;
 - private allocation;
@@ -107,13 +110,8 @@ bash scripts/demo-transfer-local.sh
 - [Core Documentation Index](docs/core-documentation-index-v1.0.0.md)
 - [Protocol Spec Index](docs/specs/protocol-spec-index-v0.1.md)
 - [Testnet Design Index](docs/testnet/testnet-design-index-v1.1.0.md)
-- [Testnet Goals and Scope](docs/testnet/testnet-goals-and-scope-v1.1.0.md)
-- [Testnet Node Architecture](docs/testnet/testnet-node-architecture-v1.1.0.md)
-- [Testnet Network Message Model](docs/testnet/testnet-network-message-model-v1.1.0.md)
-- [Testnet Ledger Sync Model](docs/testnet/testnet-ledger-sync-model-v1.1.0.md)
-- [Testnet Faucet Boundary](docs/testnet/testnet-faucet-boundary-v1.1.0.md)
-- [Testnet Explorer Requirements](docs/testnet/testnet-explorer-requirements-v1.1.0.md)
-- [Testnet Wallet Safety Policy](docs/testnet/testnet-wallet-safety-policy-v1.1.0.md)
+- [Testnet Node API README](crates/proofmoney-node/README.md)
+- [Testnet Node API Model](docs/testnet/testnet-node-api-v1.2.0.md)
 - [Security Review Scope](docs/security-review-scope.md)
 - [Contributing Guide](CONTRIBUTING.md)
 
