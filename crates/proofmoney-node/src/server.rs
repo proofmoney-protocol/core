@@ -4,7 +4,7 @@ use crate::{
     ApiErrorResponse, EventListQuery, NodeConfig, NodeService, ProofQueryRequest, ProofQueryType,
 };
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone)]
 pub struct LocalReadApiServer {
     service: NodeService,
 }

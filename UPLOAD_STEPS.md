@@ -1,25 +1,15 @@
-# ProofMoney Core v1.3.0 Testnet Read API Server Pack
+# v1.3.0 CI Fix: server derive
 
-## Upload
-
-Upload all files into the `core` repository root.
-
-Do not upload the parent folder itself.
-
-## Commit Message
+Upload and overwrite:
 
 ```text
-core: add local read api server skeleton v1.3.0
+crates/proofmoney-node/src/server.rs
 ```
 
-## After Upload
-
-Wait for GitHub Actions.
-
-If green, reply:
+Commit message:
 
 ```text
-v1.3.0 CI 已通过
+fix: remove unnecessary equality derive from api server
 ```
 
-If red, send final 30 lines.
+Then rerun CI.
